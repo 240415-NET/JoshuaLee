@@ -10,6 +10,8 @@ class Program
 
         Dog pancake = new Dog();
 
+        pancake.name = "pancake";
+
         //Here we call an instance method - this method 
         pancake.Bark();
 
