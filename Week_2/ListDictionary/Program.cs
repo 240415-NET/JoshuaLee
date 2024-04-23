@@ -30,7 +30,7 @@ class Program
         foreach (var household in simplePets)
         {
             Console.WriteLine(household.GetType());
-            Console.WriteLine(household.Key + " owns " + owner.Value);
+            Console.WriteLine(household.Key + " owns " + household.Value);
         }
 
         Dictionary<string, List<string>> petDictionary = new();
