@@ -1,4 +1,4 @@
-	Workout Tracking App
+	Workout Tracking App - SweatyMcSweatyface
 	1. Functional Requirements:
  
 		a. User Registration and Authentication
