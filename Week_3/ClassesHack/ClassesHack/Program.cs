@@ -1,21 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-
-namespace ShoppingListPro;
+﻿namespace ShoppingListPro;
 
 class Program
 
 {
     static void Main(string[] args)
     {
+        var mf = new MenuFunc();
         Console.WriteLine("Welcome to Today's Shopping List!");
         Console.WriteLine("Let's get going.");
         Staller();
         Console.Clear();
-        MenuFunc.Menu();
+        mf.Menu();
     }
 
     static void Staller()

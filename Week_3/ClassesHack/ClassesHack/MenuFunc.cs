@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -8,11 +8,13 @@ namespace ShoppingListPro
     public class MenuFunc
     {
         
-        public static void Menu()
+       public void Menu()
         {
             int Selection = 0;
+            var ai = new AddItems();
+            var dl = new DisplayList();
+            // var ail = new AddItemstolist();
             
-
             do
             {
                 Console.WriteLine("\n\nShopping List Menu");
@@ -23,22 +25,24 @@ namespace ShoppingListPro
                 // Console.WriteLine("4.  Save Your List");
                 Console.WriteLine("3.  Exit\n\n");
                 
+                #pragma warning disable CS8602 // Dereference of a possibly null reference.
                 if(!int.TryParse(Console.ReadLine().Trim(), out Selection))
                 {
                     Console.WriteLine($"Invalid selection of {Selection}");
                     Console.WriteLine("Please enter a Number.");
                     continue;
                 }
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
 
                 switch (Selection)
                 {
                     case 1:
                         Console.Clear();
-                        AI.AddItems.AddItemFunc();
+                        ai.AddItemstolist();
                         break;
                     case 2:
                         Console.Clear();
-                        Displays.DisplayList();
+                        dl.DisplayListFunc(ai.ListOfItems);
                         break;
                     case 3:
                         Console.Clear();
@@ -53,5 +57,10 @@ namespace ShoppingListPro
             }
             while(Selection != 3);
         }
+
+        // internal static void Menu()
+        // {
+        //     throw new NotImplementedException();
+        // }
     }
 }

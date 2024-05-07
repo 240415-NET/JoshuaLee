@@ -25,3 +25,66 @@
 			ii. **Generate reports or visualizations (e.g., charts, graphs) to help users visualize their fitness progress.
 	
 	**Not sure if there will be time for these items or if we will know how to do them by the time this project is due, so they are up in the air.
+
+
+# Planning Document
+
+## I want to...
+* Create a C# Console App
+* User interactions through the console with exception handling
+* Single User
+* Persist data to a local file on my machine*
+* Separate my code/logic into 3-4 layers. (Presentation (UI the user sees), Data Access (Communicating with our data store), Controllers/Business Logic, Models)
+
+# Application:
+
+* Workout Tracker
+	* Multiple accounts must be creatable
+	* Different types of workouts
+		* Running
+		* Cycling
+		* Weights
+		* etc
+	* Need to store details about workouts
+		* Workout Name
+		* Sets/Weights/Increse/Decrease from last time
+		* Distance
+		* Workout time
+		* Average Speed calculation
+
+# Sweaty McSweatface
+
+## Models
+* User:
+	* userId (int)
+	* userName (string)
+
+* Workouts:
+	* workoutId (int)
+	* Category (string)
+	* Length (Timespan?)
+
+	* Running/Cycling Class/Category
+		* totalDistance (double)
+		* averageSpeed (double)
+		* bestTime (double) --- Running best time based on lowest averageSpeed
+
+	* WeightRoom Class/Category
+		* Weight (double)
+		* Sets (double)
+		* Reps (int)
+
+	
+# User Stories/Features:
+
+* As an app user, I want to be able to:
+	* Manually Create a userName
+	* Automatically generate a userId via GUID
+
+User Stories/Features
+As a User I want to be able to create a profile and log in
+Present options via a menu in the console to the user (Presentation layer)
+We want to take their input and either (Presentation layer)
+create a new profile with a given username, and an auto-generated userID (business logic/controller)
+~~ we need to then store this profile in our data store (data access layer) ~~
+~~ if a given username already exists, prompt the user to provide a different username ~~
