@@ -17,9 +17,9 @@ namespace SweatyMcSweatyface.Presentation
         int userChoice = 0;
         bool validInput = true;
 
-        Console.WriteLine("Welcome to TrackMyStuff!");
-        Console.WriteLine("1. New user");
-        Console.WriteLine("2. Returning user");
+        Console.WriteLine("Welcome to SweatyMcSweatyface!");
+        Console.WriteLine("1. New Sweaty user");
+        Console.WriteLine("2. Returning Sweaty user");
         Console.WriteLine("3. Exit program");
         
         do
@@ -31,18 +31,18 @@ namespace SweatyMcSweatyface.Presentation
 
                 switch (userChoice)
                 {
-                    case 1: // Creating a new user profile
-                        UserCreationMenu();
+                    case 1: 
+                        UserCreationMenu(); //Creating a new user
                         break;
                     case 2:
-                        UserSignIn();
+                        UserSignIn(); //Already existing users sign in here
                         break;
 
-                    case 3: //User chooses to exit the program
+                    case 3: //Exit the program
                         return; //This return exits this method, and returns us to where it was called.
 
-                    default: // If the user enters an integer that is not 1, 2, or 3
-                        Console.WriteLine("Please enter a valid choice (from the default)!");
+                    default: 
+                        Console.WriteLine("Please enter a valid choice...Like 1, 2, or 3.");
                         validInput = false;
                         break;
                 }
@@ -53,7 +53,7 @@ namespace SweatyMcSweatyface.Presentation
                 validInput = false;
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("Please enter a valid choice! (from the catch)");
+                Console.WriteLine("That doesn't seem right... Please enter a valid choice!");
             }
 
         } while (!validInput);
@@ -61,8 +61,7 @@ namespace SweatyMcSweatyface.Presentation
         
     }
 
-    //This method handles the prompts for creating a new user profile
-    public static void UserCreationMenu() 
+    public static void UserCreationMenu() // Here's where we create the Users
     {
  
         bool validInput = true;
@@ -71,29 +70,36 @@ namespace SweatyMcSweatyface.Presentation
         do
         {   
             //Prompting the user for a username
-            Console.WriteLine("Please enter a username: ");
+            Console.WriteLine("Let's get started by creating your username.\n Please enter a username: ");
 
 
-            userInput = Console.ReadLine() ?? "";
+            userInput = Console.ReadLine() ?? "";   // Double ?s (null-coalescing operator) sets it to an empty string instead of it being a null
 
             userInput = userInput.Trim();
 
             if(String.IsNullOrEmpty(userInput))
             {
-                Console.WriteLine("Username cannot be blank, please try again.");
+                Console.WriteLine("Whoops! Looks like you forgot to enter a Username. Please try again.");
                 validInput = false;
-            }else if(UserController.UserExists(userInput))
+            }
+            else if(UserController.UserExists(userInput))
             {
-                Console.WriteLine("Username already exists, please choose another.");
+                Console.WriteLine("Doh! That Username is already in use. Please choose another.");
                 
                 validInput = false;
-            }else{ 
+            }
+   
+            
+            else
+            { 
                 UserController.CreateUser(userInput);
                 Console.WriteLine("Profile created!");
                 validInput = true;
             }
 
         } while (!validInput); 
+
+        
 
     }
     
@@ -125,5 +131,10 @@ namespace SweatyMcSweatyface.Presentation
         }
         while (signIn == false);
     }
+
+
     }
-}
+    
+
+    
+    }

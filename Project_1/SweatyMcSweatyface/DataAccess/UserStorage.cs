@@ -11,7 +11,7 @@ namespace SweatyMcSweatyface.DataAccess
 {
     public class UserStorage
     {
-
+        //
         public static string filePath = "UsersFile.json";
 
         public static void StoreUser(User user)
