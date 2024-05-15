@@ -171,4 +171,3 @@ namespace SweatyMcSweatyface.Presentation
             } while (!validInput);
 
             // additionalUserInfo();
-        }
