@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SweatyMcSweatyface.Models
 {
-    public class WeightRoom : Workouts
+    public class WeightRoom : Workout
     {
         public double Sets {get; set;}
         public double Repetitions {get; set;}

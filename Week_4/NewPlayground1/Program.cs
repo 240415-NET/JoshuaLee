@@ -1,24 +1,65 @@
-﻿using System;
+﻿// using System;
 
-namespace SumOfEvenAndOdd
+// namespace SumOfEvenAndOdd
+// {
+//     class Program
+//     {
+        // static void Main(string[] args)
+        // {
+        // //     int sumOdd = 0;
+        // //     int sumEven = 0;
+        // //     Console.Write("Enter a positive integer (n): ");
+        // //     int n = int.Parse(Console.ReadLine());
+
+        // //     for
+
+        // //  // Output the results
+        // //     Console.WriteLine($"sum_odd: {sumOdd}");
+        // //     Console.WriteLine($"sum_even: {sumEven}");
+
+        
+        // }
+
+        using System;
+using System.Linq;
+using System.IO;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+
+/**
+ * Auto-generated code below aims at helping you parse
+ * the standard input according to the problem statement.
+ **/
+class Solution
 {
-    class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+        Console.WriteLine("What number for N?");
+        
+        int N = int.Parse(Console.ReadLine());
+
+        int summed = 0;
+        long producted = 1;
+
+        for (int i = 1; i <= N; i++)
         {
-            int sumOdd = 0;
-            int sumEven = 0;
-            Console.Write("Enter a positive integer (n): ");
-            int n = int.Parse(Console.ReadLine());
-
-            for
-
-         // Output the results
-            Console.WriteLine($"sum_odd: {sumOdd}");
-            Console.WriteLine($"sum_even: {sumEven}");
+            summed += i;
         }
+
+        for (int i = 1; i <= N; i++)
+        {
+            producted *= i;
+        }
+
+        // Write an answer using Console.WriteLine()
+        // To debug: Console.Error.WriteLine("Debug messages...");
+
+        Console.WriteLine($"{summed}\n{producted}");
     }
 }
+//     }
+// }
 
 
 
