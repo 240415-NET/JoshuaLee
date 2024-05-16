@@ -55,6 +55,7 @@ namespace SweatyMcSweatyface.Presentation
                 Console.WriteLine(ex.StackTrace);
                 Console.WriteLine("That doesn't seem right... Please enter a valid choice!");
             }
+            
 
         } while (!validInput);
 
@@ -66,6 +67,11 @@ namespace SweatyMcSweatyface.Presentation
  
         bool validInput = true;
         string userInput = "";
+        string firstName = "";
+        string lastName = "";
+        var birthDate = new DateOnly(2024,01,01);
+        double heightInches = 0;
+        double Weight = 0;
 
         do
         {   
@@ -89,13 +95,94 @@ namespace SweatyMcSweatyface.Presentation
                 validInput = false;
             }
    
-            
-            else
-            { 
-                UserController.CreateUser(userInput);
-                Console.WriteLine("Profile created!");
-                validInput = true;
-            }
+            Console.WriteLine("In order to track your progression, we will need some additional information. \nPlease enter your first name: ");
+
+
+                firstName = Console.ReadLine() ?? "";
+
+                firstName = firstName.Trim();
+
+                if (String.IsNullOrEmpty(firstName))
+                {
+                    Console.WriteLine("Whoops! Please enter your first name.\n");
+                    validInput = false;
+                }
+                
+                Console.WriteLine("Please enter your last name: ");
+
+                lastName = Console.ReadLine() ?? "";
+                lastName = lastName.Trim();
+
+                if (String.IsNullOrEmpty(lastName))
+                {
+                    Console.WriteLine("Whoops! Please enter your last name.\n");
+                    validInput = false;
+                }
+
+                Console.WriteLine("Please enter your date of birth in this format: MM/DD/YYYY \nSo, if you were born on December 25, 1980, you would enter: 12/25/1980.\n ");
+
+                try
+                {
+                    birthDate = DateOnly.Parse(Console.ReadLine() ?? "");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine("Whoops! Please enter your date of birth in the correct format.\n");
+                    validInput = false;
+                }
+
+                
+                //Here we are calculating the user's age based on their birthdate
+
+                var Today = DateOnly.FromDateTime(DateTime.Today);
+                var ageInDays = Today.DayNumber - birthDate.DayNumber;
+                int Age = (int)(ageInDays / 365.25);
+
+                Console.WriteLine("Please enter your height in inches: \n");
+
+                try
+                {
+                    heightInches = Convert.ToDouble(Console.ReadLine() ?? "");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine("Whoops! Please enter your height in inches.\n");
+                    validInput = false;
+                }
+
+                Console.WriteLine("Please enter your weight in pounds: \n");
+
+
+                try
+                {
+                    Weight = Convert.ToDouble(Console.ReadLine() ?? "");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine("Whoops! Please enter your weight in pounds.\n");
+                    validInput = false;
+                }
+
+                double BMI  = (Weight / (heightInches * heightInches)) * 703;
+
+                {
+                    UserController.AddUserInfo(userInput, firstName, lastName, Age, heightInches, Weight, BMI);
+                    Console.WriteLine("Profile created!");
+                    validInput = true;
+                }
+
+            // else
+            // { 
+            //     UserController.CreateUser(userInput);
+            //     Console.WriteLine("Profile created!");
+            //     validInput = true;
+            // }
 
         } while (!validInput); 
 
@@ -117,6 +204,7 @@ namespace SweatyMcSweatyface.Presentation
                 Console.WriteLine($"User Id: {userSignedIn.userId}");
                 Console.WriteLine($"User Name: {userSignedIn.userName}");
                 signIn = true;
+                UserStatsMenu.StartStatsMenu();
             }
             else if (UserStorage.FindUser(userRequest) == null)
             {

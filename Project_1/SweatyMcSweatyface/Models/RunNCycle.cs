@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SweatyMcSweatyface.Models
 {
-    public class RunNCycle : Workouts
+    public class RunNCycle : Workout
     {
         double Distance {get; set;}
 
