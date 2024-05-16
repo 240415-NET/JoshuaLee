@@ -9,10 +9,10 @@ using SweatyMcSweatyface.Presentation;
 
 namespace SweatyMcSweatyface.Presentation
 {
-    public class UserStatsMenu : Menu
+    public class AfterLogInMenu : Menu
     {
 
-    public static void StartStatsMenu(User user) {
+    public static void PostLogInChoiceMenu() {
 
         int userChoice = 0;
         bool validInput = true;

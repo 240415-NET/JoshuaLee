@@ -6,68 +6,60 @@ using SweatyMcSweatyface.DataAccess;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 
-namespace SweatyMcSweatyface.Controllers
+
+namespace SweatyMcSweatyface.Controllers;
+
+//This is my "controller"
+//This controller handles all business logic related to the user class
+//It will contain mostly if not only methods, atleast until we decide to add things like logging
+//later on during training. 
+public class UserController
 {
-    public class UserController
+
+    //Here, we will add an object to do data access stuff with
+    //We CANNOT instantiate an object representation of an interface
+    //We CAN however, create an object of a class that implements that interface,
+    //and store it in a variable of the interface's "type"
+    private static IUserStorageRepo _userData = new JsonUserStorage();
+
+    
+    //This function handles the business logic related to creating a new 
+    //user profile, using the User class
+    //It will take input from another function in the presentation layer for the username.
+    //It will then, create the user object that we will eventually store
+    //And it will pass that created user object to the data access layer
+    public static void CreateUser(string userName)
     {
-        public static void CreateUser(string userName, string firstName, string lastName, int Age, double heightInches, double Weight, double BMI)
-        {
-            User newUser = new User(userName);
-            UserStorage.StoreUser(newUser);
-            
-        }
+        //Creating the user
+        User newUser = new User(userName);
+        
+        //Adding a WriteLine to just verify that we got here from the presentation layer
+        //Console.WriteLine($"User {newUser.userName} created using CreateUser()!");
+        //Console.WriteLine($"{newUser.userId}");
 
-        public static bool UserExists(string userName)
-        {
-            if (UserStorage.FindUser(userName) != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
-        // New method to add additional user information
-        public static void AddUserInfo(string userName, string firstName, string lastName, int Age, double heightInches, double Weight, double BMI)
-        {
-            // Find the existing user (assuming the user already exists)
-            User existingUser = UserStorage.FindUser(userName);
-
-            if (existingUser != null)
-            {
-                // Update user details
-                existingUser.firstName = firstName;
-                existingUser.Age = Age;
-                existingUser.heightInches = heightInches;
-                existingUser.Weight = Weight;
-                existingUser.BMI = BMI;
-
-                // Save the updated user profile
-                UserStorage.UpdateUserInfo(existingUser);
-            }
-            else
-            {
-                Console.WriteLine($"User '{userName}' not found. Please create the user first.");
-            }
-        }
+        //.. eventually, we will come here and call a Data Access Layer method to store the user
+        _userData.StoreUser(newUser);
     }
+
+    //This function will *eventually* be used to check if a given username already exists in our data store
+    public static bool UserExists(string userName)
+    {
+        //We will need to write some method in our UserStorage.cs (Data Access Layer) that can find a user
+        //if they exist
+        if(_userData.FindUser(userName) != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    // This function returns user information from our data layer
+    public static User ReturnUser (string userName)
+
+    {
+        User existingUser = _userData.FindUser(userName);
+        return existingUser;
+    }
+    
 }
-
-
-
-////StoreUser(newUser); heads to 
-///
-
-
-// public string firstName { get; set; }
-// public string lastName { get; set; }
-// public double heightInches { get; set; }
-// public double Weight { get; set; }
-// public double BMI { get; set; }
-// , string firstName, string lastName, double heightInches, double weight, double BMI
-// , newfirstName, newlastName, newheightInches, newWeight, newBMI
-//         User newfirstName = new User(firstName);
-// User newlastName = new User(lastName);
-// User newheightInches = new User(heightInches);
-// User newWeight = new User(Weight);
-// User newBMI = new User(BMI);

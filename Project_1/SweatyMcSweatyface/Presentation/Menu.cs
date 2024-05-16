@@ -204,7 +204,7 @@ namespace SweatyMcSweatyface.Presentation
                 Console.WriteLine($"User Id: {userSignedIn.userId}");
                 Console.WriteLine($"User Name: {userSignedIn.userName}");
                 signIn = true;
-                UserStatsMenu.StartStatsMenu();
+                AfterLogInMenu.PostLogInChoiceMenu();
             }
             else if (UserStorage.FindUser(userRequest) == null)
             {

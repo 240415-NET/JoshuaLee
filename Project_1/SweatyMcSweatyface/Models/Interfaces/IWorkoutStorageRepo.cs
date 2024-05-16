@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SweatyMcSweatyface.Models.Interfaces
+namespace SweatyMcSweatyface.Models
 {
     public interface IWorkoutStorageRepo
 
     {
         public void StoreWorkout(Workout newWorkout);
+
+        public List<Workout> GetWorkouts(Guid userID, int listType);
 
         public void StoreWeightRoom(WeightRoom newWeightRoom);
 

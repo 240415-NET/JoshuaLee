@@ -88,3 +88,9 @@ We want to take their input and either (Presentation layer)
 create a new profile with a given username, and an auto-generated userID (business logic/controller)
 ~~ we need to then store this profile in our data store (data access layer) ~~
 ~~ if a given username already exists, prompt the user to provide a different username ~~
+
+Still to do:
+1. Fix connections to the various menus
+2. Finish Storage coding
+3. Start working on additonal workout enhancements/calculations
+4. Create Workout menue more in-depth
