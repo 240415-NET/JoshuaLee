@@ -10,17 +10,32 @@ namespace SweatyMcSweatyface.Models.Interfaces
     {
         public void StoreWorkout(Workout newWorkout);
 
+        public List<Workout> GetWorkouts(Guid userID, int listType);
+
         public void StoreWeightRoom(WeightRoom newWeightRoom);
+
+        public List<WeightRoom> GetWeightRooms(Guid userID, int listType);
 
         public void StoreRunNCycle(RunNCycle newRunNCycle);
 
-        public WorkoutsDTO GetAllWorkouts();
+        public List<RunNCycle> GetRunNCycles(Guid userID, int listType);
 
-        public Workout GetWorkout(int workoutId);
+        // public WorkoutsDTO GetAllWorkouts(Guid userID, int listType);
 
-        public WeightRoom GetWeightRoom(int workoutId);
+        // public List<Workout> GetWorkouts(Guid userID);
+        
+        // public Workout GetWorkout(int workoutId);
 
-        public RunNCycle GetRunNCycle(int workoutId);
+        // public List<Workout> GetWorkouts(int workoutId);
+
+        // public WeightRoom GetWeightRoomsByWorkoutId(int workoutId);
+
+        // public List<WeightRoom> GetWeightRooms(int workoutId);
+
+        // public RunNCycle GetRunNCycles(int workoutId);
+
+        // public List<RunNCycle> GetRunNCyclesByWorkoutId(int workoutId);
+        // List<WeightRoom>? GetWeightRooms(Guid userId);
 
         // public void DeleteWorkout(int workoutId);
 

@@ -7,16 +7,18 @@ namespace SweatyMcSweatyface.Models
 {
     public class Workout
     {
-        public int WorkoutId { get; private set; }
+        public Guid userId { get; set; }
+        public Guid WorkoutId { get; set; }
         public string WorkoutType { get; set; }
         public TimeSpan Duration { get; set; }
         public string Description { get; set; }
 
         public Workout() { }
 
-        public Workout(int _WorkoutId, string _WorkoutType,
+        public Workout(Guid _userId, Guid _WorkoutId, string _WorkoutType,
             TimeSpan _Duration, string _Description)
         {
+            userId = _userId;
             WorkoutId = _WorkoutId;
             WorkoutType = _WorkoutType;
             Duration = _Duration;

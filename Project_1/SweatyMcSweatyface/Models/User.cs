@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SweatyMcSweatyface.Controllers;
-using SweatyMcSweatyface.DataAccess;
+using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Presentation;
 
 namespace SweatyMcSweatyface.Models
@@ -41,17 +41,17 @@ namespace SweatyMcSweatyface.Models
 
         class Program
 {
-    static void Main()
-    {
-        var result1 = ToFeetInches(70.0);
-        Console.WriteLine(result1); // Output: 5 feet 10 inches
+    // static void Main()
+    // {
+    //     var result1 = ToFeetInches(70.0);
+    //     Console.WriteLine(result1); // Output: 5 feet 10 inches
 
-        var result2 = ToFeetInches(61.5);
-        Console.WriteLine(result2); // Output: 5 feet 1.5 inches
+    //     var result2 = ToFeetInches(61.5);
+    //     Console.WriteLine(result2); // Output: 5 feet 1.5 inches
 
-        var result3 = ToFeetInches(72.0);
-        Console.WriteLine(result3); // Output: 6 feet 0 inches
-    }
+    //     var result3 = ToFeetInches(72.0);
+    //     Console.WriteLine(result3); // Output: 6 feet 0 inches
+    // }
 
     static KeyValuePair<int, double> ToFeetInches(double totalInches)
     {

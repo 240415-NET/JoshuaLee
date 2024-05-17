@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SweatyMcSweatyface.Controllers;
-using SweatyMcSweatyface.DataAccess;
+using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 
@@ -172,7 +172,7 @@ namespace SweatyMcSweatyface.Presentation
                 double BMI  = (Weight / (heightInches * heightInches)) * 703;
 
                 {
-                    UserController.AddUserInfo(userInput, firstName, lastName, Age, heightInches, Weight, BMI);
+                    UserController.CreateUser(userInput, firstName, lastName, Age, heightInches, Weight, BMI);
                     Console.WriteLine("Profile created!");
                     validInput = true;
                 }
@@ -193,29 +193,41 @@ namespace SweatyMcSweatyface.Presentation
     public static void UserSignIn()
     {
         bool signIn = false;
-        Console.WriteLine("Please key username to sign in");
-        string userRequest = Console.ReadLine().Trim();
+        Console.WriteLine("Please provide your username to sign in\n");
+        string userInput = Console.ReadLine().Trim();
         do
         {
             
-            if (UserStorage.FindUser(userRequest) != null)
+            if (String.IsNullOrEmpty(userInput))
             {
-                User userSignedIn = UserStorage.FindUser(userRequest);
-                Console.WriteLine($"User Id: {userSignedIn.userId}");
-                Console.WriteLine($"User Name: {userSignedIn.userName}");
-                signIn = true;
-                UserStatsMenu.StartStatsMenu();
+                Console.WriteLine("Whoops! Looks like you forgot to enter a Username. Please try again.");
+                signIn = false;
             }
-            else if (UserStorage.FindUser(userRequest) == null)
+            else if (!UserController.UserExists(userInput))
             {
-                Console.WriteLine("User not found! Do you need to create a new user? Key yes to go to creation or rekey email");
-                userRequest = Console.ReadLine().Trim();
-                if (userRequest == "yes" || userRequest == "y")
+                Console.WriteLine($"User not found! /nDo you need to create a new user? (yes/no)");
+                userInput = Console.ReadLine().Trim();
+                if (userInput == "yes" || userInput == "y")
                 {
                     signIn = true;
                     UserCreationMenu();
                 }
+                else if (userInput == "no" || userInput == "n")
+                {
+                    signIn = false;
+                    UserSignIn();
+                }
+            else 
+            {  
+                User userSignedIn = UserController.ReturnUser(userInput);
+                Console.WriteLine($"User Id: {userSignedIn.userId}");
+                Console.WriteLine($"User Name: {userSignedIn.userName}");
+                signIn = true;
+                AfterLogInMenu.PostLogInChoiceMenu();
             }
+                
+            }
+            
         }
         while (signIn == false);
     }
