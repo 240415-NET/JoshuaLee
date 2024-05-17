@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SweatyMcSweatyface.DataAccess;
+using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 
@@ -28,10 +28,10 @@ public class UserController
     //It will take input from another function in the presentation layer for the username.
     //It will then, create the user object that we will eventually store
     //And it will pass that created user object to the data access layer
-    public static void CreateUser(string userName)
+    public static void CreateUser(string userName, string firstName, string lastName, int Age, double heightInches, double Weight, double BMI)
     {
         //Creating the user
-        User newUser = new User(userName);
+        User newUser = new User(userName, firstName, lastName, Age, heightInches, Weight, BMI);
         
         //Adding a WriteLine to just verify that we got here from the presentation layer
         //Console.WriteLine($"User {newUser.userName} created using CreateUser()!");

@@ -6,8 +6,10 @@ using SweatyMcSweatyface.Controllers;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 using System.Text.Json;
+using SweatyMcSweatyface.Data;
 
-namespace TrackMyStuff.Data;
+namespace SweatyMcSweatyface.Data;
+
 
 public class DTOStorage
 {
@@ -16,7 +18,7 @@ public class DTOStorage
     public static List<Workout> DeserializeWorkout()
     {
 
-        List<Workout?> existingWorkoutList = new List<Workout>();
+        List<Workout?> existingWorkoutList = new List<Workout?>();
                 try
         {
                         if (File.Exists(filePath))
@@ -46,7 +48,7 @@ public class DTOStorage
     public static List<WeightRoom> DeserializeWeightRoom()
     {
 
-        List<WeightRoom?> existingWeightRoomtList = new List<WeightRoom>();
+        List<WeightRoom?> existingWeightRoomList = new List<WeightRoom?>();
 
 
         try
@@ -84,7 +86,7 @@ public class DTOStorage
     {
 
         
-        List<RunNCycle?> existingRunNCycleList = new List<RunNCycle>();
+        List<RunNCycle?> existingRunNCycleList = new List<RunNCycle?>();
         
         try
         {
@@ -94,10 +96,9 @@ public class DTOStorage
 
                 string existingDTOJson = File.ReadAllText(filePath);
 
-                                WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
+                WorkoutsDTO? existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
 
-                                
-                if (existingDTO.RunNCycles == null)
+                if (existingDTO?.RunNCycles == null)
                     return existingRunNCycleList;
                 else
                     existingRunNCycleList = existingDTO.RunNCycles.ToList(); 
@@ -118,18 +119,10 @@ public class DTOStorage
 
     public static void SerializeWorkout(List<WorkoutsDTO> existingWorkoutList)
     {
-      
         string existingDTOJson = File.ReadAllText(filePath);
-
-        
         WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
-     
-        existingDTO.Workouts = existingWorkoutList;
-
-
+        existingDTO.Workouts = existingWorkoutList.Cast<Workout>().ToList();
         existingDTOJson = JsonSerializer.Serialize(existingDTO);
-
-
         File.WriteAllText(filePath, existingDTOJson);
     }
 
@@ -164,5 +157,10 @@ public class DTOStorage
         existingDTOJson = JsonSerializer.Serialize(existingDTO);
 
         File.WriteAllText(filePath, existingDTOJson);
+    }
+
+    internal static void SerializeWorkout(List<Workout?> existingWorkoutsList)
+    {
+        throw new NotImplementedException();
     }
 }

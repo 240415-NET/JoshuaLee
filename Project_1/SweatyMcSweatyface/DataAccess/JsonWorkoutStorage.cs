@@ -2,66 +2,59 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using SweatyMcSweatyface.Models.Interfaces;
+using SweatyMcSweatyface.Controllers;
+using SweatyMcSweatyface.Models;
+using SweatyMcSweatyface.Presentation;
+using System.Text.Json;
+using SweatyMcSweatyface.Data;
+using SweatyMcSweatyface.Models.Interfaces; // Add this using directive
 
-namespace SweatyMcSweatyface.DataAccess
+
+namespace SweatyMcSweatyface.Data
 {
+    
+
     public class JsonWorkoutStorage : IWorkoutStorageRepo
-    // {
-    //     public void StoreWorkout(Workout newWorkout)
-    //     {
-    //         List<Workout?> existingWorkoutsList = DTOStorage.DeserializeWorkout();
-
-    //         //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
-    //         //We will then simply add it to the list, using the Add() method
-    //         existingWorkoutsList.Add(newWorkout);
-
-    //         DTOStorage.SerializeWorkout(existingWorkoutsList);
-    //     }
-
-    //     public List<Workout> GetWorkouts()
-    //     {
-    //         List<Workout> myReturnList = new();
-    //         WorkoutsDTO allMyWorkouts = JsonSerializer.Deserialize<WorkoutsDTO>(File.ReadAllText(filePath));
-    //         foreach (var workout in allMyWorkouts.Workouts)
-    //         {
-    //             myReturnList.Add(workout);
-    //         }
-    //         foreach (var weightRoom in allMyWorkouts.WeightRooms)
-    //         {
-    //             myReturnList.Add(weightRoom);
-    //         }
-    //         foreach (var runNCycle in allMyWorkouts.RunNCycles)
-    //         {
-    //             myReturnList.Add(runNCycle);
-    //         }
-    //         return myReturnList;
-    //     }
-    // }
-  {
-
-    public static string filePath = "Workouts.json";
-
-    //If I find myself re-using the same string or object etc, I can go ahead
-    //and make it a member of my class. This way I can reuse this same data without
-    //having to continuously re-initialize it.
-    //The underscore is a common convention to denote variables that are common
-    //to the entire class
-
-
-    //Changed my methods to be instance methods instead of class methods
-
-    public void StoreWorkout(Workout newWorkout)
     {
-        List<Workout?> existingWorkoutsList = DTOStorage.DeserializeWorkout();
+        public static string filePath = "Workouts.json";
 
-        //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
-        //We will then simply add it to the list, using the Add() method
-        existingWorkoutsList.Add(newWorkout);
+        //If I find myself re-using the same string or object etc, I can go ahead
+        //and make it a member of my class. This way I can reuse this same data without
+        //having to continuously re-initialize it.
+        //The underscore is a common convention to denote variables that are common
+        //to the entire class
 
-        DTOStorage.SerializeWorkout(existingWorkoutsList);
+        public void StoreWorkout(Workout newWorkout)
+        {
+            List<Workout?> existingWorkoutsList = DTOStorage.DeserializeWorkout();
+
+            //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
+            //We will then simply add it to the list, using the Add() method
+            existingWorkoutsList.Add(newWorkout);
+
+            DTOStorage.SerializeWorkout(existingWorkoutsList);
+        }
+   
+    // public void StoreWorkout(Workout newWorkout)
+    // {
+    //     List<Workout?> existingWorkoutsList = DTOStorage.DeserializeWorkout();
+
+    //     //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
+    //     //We will then simply add it to the list, using the Add() method
+    //     existingWorkoutsList.Add(newWorkout);
+
+    //     DTOStorage.SerializeWorkout(existingWorkoutsList);
+    // }
+    public List<WeightRoom> GetWeightRooms(Guid userId, int listType)
+    {
+        // Your implementation here
+        return new List<WeightRoom>();
     }
-
+    public List<RunNCycle> GetRunNCycles(Guid userId, int listType)
+    {
+        // Your implementation here
+        return new List<RunNCycle>();
+    }
     public void StoreWeightRoom(WeightRoom newWeightRoom)
     {
 
@@ -87,36 +80,52 @@ namespace SweatyMcSweatyface.DataAccess
 
         DTOStorage.SerializeRunNCycle(existingRunNCyclesList);
     }
+
+
     
-    public List<Workout> GetWorkouts(Guid userID, int listType)
+public List<Workout> GetWorkouts(Guid userID, int listType)
+{
+    List<Workout> myReturnList = new();
+    WorkoutsDTO allWorkouts = JsonSerializer.Deserialize<WorkoutsDTO>(File.ReadAllText(filePath));
+
+    if (allWorkouts != null)
     {
-        List<Workout> myReturnList = new();
-        WorkoutsDTO allWorkouts = JsonSerializer.Deserialize<WorkoutsDTO>(File.ReadAllText(filePath));
         if (listType == 4 || listType == 1)
         {
-            var userWorkouts = allWorkouts.Workouts.Where(x => x.userId.Equals(userID));
-            foreach (var Workout in userWorkouts)
+            var userWorkouts = allWorkouts.Workouts?.Where(x => x.userId.Equals(userID));
+            if (userWorkouts != null)
             {
-                myReturnList.Add(Workout);
+                foreach (var Workout in userWorkouts)
+                {
+                    myReturnList.Add(Workout);
+                }
             }
         }
         if (listType == 4 || listType == 2)
         {
-            var userRunNCycles = allWorkouts.RunNCycles.Where(x => x.userId.Equals(userID));
-            foreach (var RunNCycle in userRunNCycles)
+            var userRunNCycles = allWorkouts.RunNCycles?.Where(x => x.userId.Equals(userID));
+            if (userRunNCycles != null)
             {
-                myReturnList.Add(RunNCycle);
+                foreach (var RunNCycle in userRunNCycles)
+                {
+                    myReturnList.Add(RunNCycle);
+                }
             }
         }
         if (listType == 4 || listType == 3)
         {
-            var userDocs = allWorkouts.WeightRooms.Where(x => x.userId.Equals(userID));
-            foreach (var WeightRoom in userDocs)
+            var userDocs = allWorkouts.WeightRooms?.Where(x => x.userId.Equals(userID));
+            if (userDocs != null)
             {
-                myReturnList.Add(WeightRoom);
+                foreach (var WeightRoom in userDocs)
+                {
+                    myReturnList.Add(WeightRoom);
+                }
             }
         }
-        return myReturnList;
     }
+    return myReturnList;
+    }
+}
 }
 

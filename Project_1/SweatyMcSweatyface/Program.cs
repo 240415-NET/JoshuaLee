@@ -1,5 +1,5 @@
 ﻿using SweatyMcSweatyface.Controllers;
-using SweatyMcSweatyface.DataAccess;
+using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 

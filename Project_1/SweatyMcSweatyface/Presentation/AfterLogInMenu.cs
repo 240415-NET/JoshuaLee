@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using SweatyMcSweatyface.Controllers;
-using SweatyMcSweatyface.DataAccess;
+using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 
@@ -70,117 +70,104 @@ namespace SweatyMcSweatyface.Presentation
     }
     public class UserStats : Menu // Here's where we add additional information about the user for use in tracking their workout progress
     {
-        public static void CollectAddtlInfo(User user)
+        public static void AddWorkout()
         {
-
-            bool validInput = true;
-            string userInput = "";
-
-            do
+            Console.WriteLine("What type of workout would you like to add?");
+            Console.WriteLine("1. Weight Room");
+            Console.WriteLine("2. Run or Cycle");
+            Console.WriteLine("3. General Workout");
+            Console.WriteLine("4. Return to main menu");
+            int userChoice = Convert.ToInt32(Console.ReadLine());
+            switch (userChoice)
             {
-                string firstName = "";
-                string lastName = "";
-                var birthDate = new DateOnly(2024,01,01);
-                double heightInches = 0;
-                double Weight = 0;
-                
-                
-
-                Console.WriteLine("In order to track your progression, we will need some additional information. \nPlease enter your first name: ");
-
-
-                firstName = Console.ReadLine() ?? "";
-
-                firstName = firstName.Trim();
-
-                if (String.IsNullOrEmpty(firstName))
-                {
-                    Console.WriteLine("Whoops! Please enter your first name.\n");
-                    validInput = false;
-                }
-                
-                Console.WriteLine("Please enter your last name: ");
-
-                lastName = Console.ReadLine() ?? "";
-                lastName = lastName.Trim();
-
-                if (String.IsNullOrEmpty(lastName))
-                {
-                    Console.WriteLine("Whoops! Please enter your last name.\n");
-                    validInput = false;
-                }
-
-                Console.WriteLine("Please enter your date of birth in this format: MM/DD/YYYY \nSo, if you were born on December 25, 1980, you would enter: 12/25/1980.\n ");
-
-                try
-                {
-                    birthDate = DateOnly.Parse(Console.ReadLine() ?? "");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine("Whoops! Please enter your date of birth in the correct format.\n");
-                    validInput = false;
-                }
-
-                
-                //Here we are calculating the user's age based on their birthdate
-
-                var Today = DateOnly.FromDateTime(DateTime.Today);
-                var ageInDays = Today.DayNumber - birthDate.DayNumber;
-                int Age = (int)(ageInDays / 365.25);
-
-
-                //Old code for calculating age ----------------- Needed to remove if not reutilized
-                // DateTime birthDateTime = new DateTime(birthDate.Year, birthDate.Month, birthDate.Day);
-                // DateTime todayDateTime;
-                // Today = DateOnly.FromDateTime(DateTime.Today);
-                // todayDateTime = new DateTime(Today.Year, Today.Month, Today.Day);
-                // Age = (todayDateTime - birthDateTime).Days / 365.25;
-
-                
-
-
-                try
-                {
-                    heightInches = Convert.ToDouble(Console.ReadLine() ?? "");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine("Whoops! Please enter your height in inches.\n");
-                    validInput = false;
-                }
-
-                Console.WriteLine("Please enter your weight in pounds: \n");
-
-
-                try
-                {
-                    Weight = Convert.ToDouble(Console.ReadLine() ?? "");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                    Console.WriteLine(ex.StackTrace);
-                    Console.WriteLine("Whoops! Please enter your weight in pounds.\n");
-                    validInput = false;
-                }
-
-                double BMI  = (Weight / (heightInches * heightInches)) * 703;
-
-                {
-                    UserController.CreateUser(user, firstName, lastName, Age, heightInches, Weight, BMI);
-                    Console.WriteLine("Profile created!");
-                    validInput = true;
-                }
-
-            } while (!validInput);
+                case 1:
+                    AddWeightRoom();
+                    break;
+                case 2:
+                    AddRunNCycle();
+                    break;
+                case 3:
+                    AddGeneralWorkout();
+                    break;
+                case 4:
+                    PostLogInChoiceMenu();
+                    break;
+                default:
+                    Console.WriteLine("Please enter a valid choice...Like 1, 2, or 3.");
+                    break;
+            }
         }
+
+        public static void AddWeightRoom()
+        {
+            Console.WriteLine("Enter the date of your workout (MM/DD/YYYY): ");
+            DateTime date = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Enter the duration of your workout (in minutes): ");
+            int duration = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the number of sets you completed: ");
+            int sets = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the number of reps you completed: ");
+            int reps = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the weight you lifted: ");
+            double weight = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter the type of workout you completed: ");
+            string workoutType = Console.ReadLine();
+            Console.WriteLine("Enter the number of calories burned: ");
+            double caloriesBurned = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter any additional notes: ");
+            string notes = Console.ReadLine();
+            WeightRoom newWeightRoom = new WeightRoom(date, duration, sets, reps, weight, workoutType, caloriesBurned, notes);
+            UserController.AddWorkout(newWeightRoom);
+            PostLogInChoiceMenu();
+        }
+
+        
+        public static void AddRunNCycle()
+        {
+            Console.WriteLine("Enter the date of your workout (MM/DD/YYYY): ");
+            DateTime date = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Enter the duration of your workout (in minutes): ");
+            int duration = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the distance you ran or cycled: ");
+            double distance = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter the type of workout you completed: ");
+            string workoutType = Console.ReadLine();
+            Console.WriteLine("Enter the number of calories burned: ");
+            double caloriesBurned = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Enter any additional notes: ");
+            string notes = Console.ReadLine();
+            RunNCycle newRunNCycle = new RunNCycle(CardioType, Distance, RunOrCycle, AverageSpeed);
+            UserController.AddWorkout(newRunNCycle);
+            PostLogInChoiceMenu();
+        }
+
+        public static void AddGeneralWorkout()
+        {
+            Console.WriteLine("Enter the date of your workout (MM/DD/YYYY): ");
+            DateTime date = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Enter the duration of your workout (in minutes): ");
+            int duration = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Enter the type of workout you completed: ");
+            string workoutType = Console.ReadLine();
+            Workout newWorkout = new Workout(date, duration, workoutType);
+            UserController.AddWorkout(newWorkout);
+            PostLogInChoiceMenu();
+        }
+//caloriesBurned, notes
+
+// Console.WriteLine("Enter the number of calories burned: ");
+//             double caloriesBurned = Convert.ToDouble(Console.ReadLine());
+//             Console.WriteLine("Enter any additional notes: ");
+//             string notes = Console.ReadLine();
+        public static void ViewProgress()
+        {}
+
+        public static void UpdateUserInfo()
+        {}
+    }   
+
     }
-    }
+    
 }
 
             // additionalUserInfo();
