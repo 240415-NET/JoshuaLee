@@ -1,0 +1,1 @@
+Data Source=GEIPW07D10Z;Initial Catalog=SweatyProject;Integrated Security=False;User Id=sa;Password=Hereismy1!;MultipleActiveResultSets=True;TrustServerCertificate=True;

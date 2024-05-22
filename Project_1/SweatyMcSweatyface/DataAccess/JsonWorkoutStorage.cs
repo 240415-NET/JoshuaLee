@@ -35,16 +35,7 @@ namespace SweatyMcSweatyface.Data
             DTOStorage.SerializeWorkout(existingWorkoutsList);
         }
    
-    // public void StoreWorkout(Workout newWorkout)
-    // {
-    //     List<Workout?> existingWorkoutsList = DTOStorage.DeserializeWorkout();
 
-    //     //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
-    //     //We will then simply add it to the list, using the Add() method
-    //     existingWorkoutsList.Add(newWorkout);
-
-    //     DTOStorage.SerializeWorkout(existingWorkoutsList);
-    // }
     public List<WeightRoom> GetWeightRooms(Guid userId, int listType)
     {
         // Your implementation here
@@ -60,12 +51,13 @@ namespace SweatyMcSweatyface.Data
 
         List<WeightRoom?> existingWeightRoomsList = DTOStorage.DeserializeWeightRoom();
 
+        List<WeightRoom> existingWeightRooms = existingWeightRoomsList.Where(x => x != null).Select(x => x!).ToList();
 
         //Once we deserialize our exisitng JSON text from the file into a new List<Workout> object
         //We will then simply add it to the list, using the Add() method
-        existingWeightRoomsList.Add(newWeightRoom);
+        existingWeightRooms.Add(newWeightRoom);
 
-        DTOStorage.SerializeWeightRoom(existingWeightRoomsList);
+        DTOStorage.SerializeWeightRoom(existingWeightRooms);
     }
 
     public void StoreRunNCycle(RunNCycle newRunNCycle)

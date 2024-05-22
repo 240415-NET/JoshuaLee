@@ -7,4 +7,15 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.0" />
+  </ItemGroup>
+
+<ItemGroup>
+    <Reference Include="System.Data.SqlClient">
+        <HintPath>lib\system.data.sqlclient\4.8.6\lib\net461\System.Data.SqlClient.dll</HintPath>
+    </Reference>
+</ItemGroup>
+
 </Project>
+ 
