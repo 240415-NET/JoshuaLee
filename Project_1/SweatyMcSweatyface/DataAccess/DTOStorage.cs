@@ -19,20 +19,21 @@ public class DTOStorage
     {
 
         List<Workout?> existingWorkoutList = new List<Workout?>();
-                try
+        try
         {
-                        if (File.Exists(filePath))
+            if (File.Exists(filePath))
             {
-                                string existingDTOJson = File.ReadAllText(filePath);
+                string existingDTOJson = File.ReadAllText(filePath);
 
-               
+
                 WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
 
                 if (existingDTO.Workouts == null)
                     return existingWorkoutList;
                 else
-                    existingWorkoutList = existingDTO.Workouts.ToList();             }
-            else if (!File.Exists(filePath)) 
+                    existingWorkoutList = existingDTO.Workouts.ToList();
+            }
+            else if (!File.Exists(filePath))
 
             {
                 WorkoutsDTO existingDTO = new();
@@ -50,26 +51,20 @@ public class DTOStorage
 
         List<WeightRoom?> existingWeightRoomList = new List<WeightRoom?>();
 
-
         try
         {
 
             if (File.Exists(filePath))
             {
-
-
                 string existingDTOJson = File.ReadAllText(filePath);
+                WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
 
-                               WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);
-
-                
                 if (existingDTO.WeightRooms == null)
                     return existingWeightRoomList;
                 else
-                    existingWeightRoomList = existingDTO.WeightRooms.ToList();                 
-
+                    existingWeightRoomList = existingDTO.WeightRooms.ToList();
             }
-            else if (!File.Exists(filePath)) 
+            else if (!File.Exists(filePath))
             {
                 WorkoutsDTO existingDTO = new();
                 string existingDTOJson = JsonSerializer.Serialize(existingDTO);
@@ -79,18 +74,13 @@ public class DTOStorage
         catch (Exception e) { }
 
         return existingWeightRoomList;
-
     }
-
     public static List<RunNCycle> DeserializeRunNCycle()
     {
-
-        
         List<RunNCycle?> existingRunNCycleList = new List<RunNCycle?>();
-        
+
         try
         {
-            
             if (File.Exists(filePath))
             {
 
@@ -101,10 +91,10 @@ public class DTOStorage
                 if (existingDTO?.RunNCycles == null)
                     return existingRunNCycleList;
                 else
-                    existingRunNCycleList = existingDTO.RunNCycles.ToList(); 
+                    existingRunNCycleList = existingDTO.RunNCycles.ToList();
 
             }
-            else if (!File.Exists(filePath)) 
+            else if (!File.Exists(filePath))
             {
                 WorkoutsDTO existingDTO = new();
                 string existingDTOJson = JsonSerializer.Serialize(existingDTO);
@@ -128,7 +118,7 @@ public class DTOStorage
 
     public static void SerializeWeightRoom(List<WeightRoom> existingWeightRoomList)
     {
-        
+
         string existingDTOJson = File.ReadAllText(filePath);
 
 
@@ -140,13 +130,13 @@ public class DTOStorage
 
         existingDTOJson = JsonSerializer.Serialize(existingDTO);
 
-        
+
         File.WriteAllText(filePath, existingDTOJson);
     }
 
     public static void SerializeRunNCycle(List<RunNCycle> existingRunNCycleList)
     {
-        
+
         string existingDTOJson = File.ReadAllText(filePath);
 
         WorkoutsDTO existingDTO = JsonSerializer.Deserialize<WorkoutsDTO>(existingDTOJson);

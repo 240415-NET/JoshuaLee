@@ -7,8 +7,8 @@ using SweatyMcSweatyface.Models;
 using SweatyMcSweatyface.Presentation;
 using System.Text.Json;
 
-namespace SweatyMcSweatyface.Data
-{
+namespace SweatyMcSweatyface.Data;
+
     public class JsonUserStorage : IUserStorageRepo
     {
 
@@ -24,7 +24,7 @@ namespace SweatyMcSweatyface.Data
             {
                 string existingUsersJson = File.ReadAllText(filePath);
 
-                List<User> existingUsersList = existingUsersJson != null ? JsonSerializer.Deserialize<List<User>>(existingUsersJson) : new List<User>();
+                List<User> existingUsersList = JsonSerializer.Deserialize<List<User>>(existingUsersJson);
 
                 existingUsersList?.Add(user);
 
@@ -52,7 +52,7 @@ namespace SweatyMcSweatyface.Data
         public User FindUser(string usernameToFind)
         {
             //User object to store a user if they are found or NULL if they are not
-            User foundUser = new User(usernameToFind, "", "", 0, 0, 0, 0);
+            User foundUser = new User(usernameToFind);
             try
             {
 
@@ -60,8 +60,10 @@ namespace SweatyMcSweatyface.Data
                 string existingUsersJson = File.ReadAllText(filePath);
 
                 //Then, we need to serialize the string back into a List of User objects
-                List<User> existingUsersList = existingUsersJson != null ? JsonSerializer.Deserialize<List<User>>(existingUsersJson) : new List<User>();
+                List<User> existingUsersList = JsonSerializer.Deserialize<List<User>>(existingUsersJson);
+                
                 foundUser = existingUsersList?.FirstOrDefault(user => user.userName == usernameToFind);
+                return foundUser;
 
                 //The above lambda function is essentially iterating through and querying the list for us, 
                 //as if we were doing the foreach loop below
@@ -84,9 +86,10 @@ namespace SweatyMcSweatyface.Data
                 Console.WriteLine(e.Message);
             }
 
-            return foundUser;
+            return null;
 
         }
-    }
+
+        
 
     }

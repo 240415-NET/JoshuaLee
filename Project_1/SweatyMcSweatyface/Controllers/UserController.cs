@@ -28,10 +28,10 @@ public class UserController
     //It will take input from another function in the presentation layer for the username.
     //It will then, create the user object that we will eventually store
     //And it will pass that created user object to the data access layer
-    public static void CreateUser(string userName, string firstName, string lastName, int Age, double heightInches, double Weight, double BMI)
+    public static void CreateUser(string userName)
     {
         //Creating the user
-        User newUser = new User(userName, firstName, lastName, Age, heightInches, Weight, BMI);
+        User newUser = new User(userName);
         
         //Adding a WriteLine to just verify that we got here from the presentation layer
         //Console.WriteLine($"User {newUser.userName} created using CreateUser()!");

@@ -10,17 +10,18 @@ namespace SweatyMcSweatyface.Models
         public Guid userId { get; set; }
         public Guid WorkoutId { get; set; }
         public string WorkoutType { get; set; }
-        public TimeSpan Duration { get; set; }
+        public DateOnly Date { get; set; }
+        public double Duration { get; set; }
         public string Description { get; set; }
 
         public Workout() { }
 
-        public Workout(Guid _userId, Guid _WorkoutId, string _WorkoutType,
-            TimeSpan _Duration, string _Description)
+        public Workout(Guid _userId, string _WorkoutType, DateOnly _Date, double _Duration, string _Description)
         {
             userId = _userId;
-            WorkoutId = _WorkoutId;
+            WorkoutId =Guid.NewGuid();
             WorkoutType = _WorkoutType;
+            Date = _Date;
             Duration = _Duration;
             Description = _Description;
         }
