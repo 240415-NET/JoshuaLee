@@ -1,52 +1,32 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 using SweatyMcSweatyface.Data;
 using SweatyMcSweatyface.Models;
-using SweatyMcSweatyface.Presentation;
+using SweatyMcSweatyface.Models.Interfaces;
+
 
 
 namespace SweatyMcSweatyface.Controllers;
 
-//This is my "controller"
-//This controller handles all business logic related to the user class
-//It will contain mostly if not only methods, atleast until we decide to add things like logging
-//later on during training. 
+
 public class UserController
 {
 
-    //Here, we will add an object to do data access stuff with
-    //We CANNOT instantiate an object representation of an interface
-    //We CAN however, create an object of a class that implements that interface,
-    //and store it in a variable of the interface's "type"
-    private static IUserStorageRepo _userData = new JsonUserStorage();
+    // private static Models.Interfaces.IUserStorageRepo _userData = (Models.Interfaces.IUserStorageRepo)new SqlUserStorage();
 
-    
-    //This function handles the business logic related to creating a new 
-    //user profile, using the User class
-    //It will take input from another function in the presentation layer for the username.
-    //It will then, create the user object that we will eventually store
-    //And it will pass that created user object to the data access layer
-    public static void CreateUser(string userName)
+    private static IUserStorageRepo _userData = new SqlUserStorage();
+    public static string CreateUser(string userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
     {
         //Creating the user
-        User newUser = new User(userName);
-        
-        //Adding a WriteLine to just verify that we got here from the presentation layer
-        //Console.WriteLine($"User {newUser.userName} created using CreateUser()!");
-        //Console.WriteLine($"{newUser.userId}");
+        User newUser = new User(userName, _firstName, _lastName, _birthDate, _Age, _heightInches, _Weight, _BMI);
 
-        //.. eventually, we will come here and call a Data Access Layer method to store the user
         _userData.StoreUser(newUser);
+        return newUser.userId.ToString();
     }
 
-    //This function will *eventually* be used to check if a given username already exists in our data store
     public static bool UserExists(string userName)
     {
-        //We will need to write some method in our UserStorage.cs (Data Access Layer) that can find a user
-        //if they exist
-        if(_userData.FindUser(userName) != null)
+
+        if (_userData.FindUser(userName) != null)
         {
             return true;
         }
@@ -54,12 +34,62 @@ public class UserController
         return false;
     }
 
+    public static string updateUser(string userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
+    {
+        User existingUser = _userData.FindUser(userName);
+        existingUser.firstName = _firstName;
+        existingUser.lastName = _lastName;
+        existingUser.birthDate = _birthDate;
+        existingUser.Age = _Age;
+        existingUser.heightInches = _heightInches;
+        existingUser.Weight = _Weight;
+        existingUser.BMI = _BMI;
+        _userData.updateUser(existingUser);
+        return existingUser.userId.ToString();
+    }
+
     // This function returns user information from our data layer
-    public static User ReturnUser (string userName)
+    public static User ReturnUser(string userName)
 
     {
         User existingUser = _userData.FindUser(userName);
         return existingUser;
     }
-    
+
+
+    public static string UpdateUserFirstName(string username, string newFirstName)
+    {
+        User existingUser = _userData.FindUser(username);
+        existingUser.firstName = newFirstName;
+        _userData.updateUser(existingUser);
+        return existingUser.userId.ToString();
+    }
+
+    public static string UpdateUserBirthDateNAge(string username, DateOnly newBirthDate, int newAge)
+    {
+        User existingUser = _userData.FindUser(username);
+        existingUser.birthDate = newBirthDate;
+        existingUser.Age = newAge;
+        _userData.updateUser(existingUser);
+        return existingUser.userId.ToString();
+    }
+
+    public static string UpdateUserLastName(string username, string newLastName)
+    {
+        User existingUser = _userData.FindUser(username);
+        existingUser.lastName = newLastName;
+        _userData.updateUser(existingUser);
+        return existingUser.userId.ToString();
+    }
+
+    public static string UpdateUserHeightWeightBMI(string username, double newHeight, double newWeight, double newBMI)
+    {
+        User existingUser = _userData.FindUser(username);
+        existingUser.heightInches = newHeight;
+        existingUser.Weight = newWeight;
+        existingUser.BMI = newBMI;
+        _userData.updateUser(existingUser);
+        return existingUser.userId.ToString();
+    }
+
 }

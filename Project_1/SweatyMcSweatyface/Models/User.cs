@@ -13,6 +13,13 @@ namespace SweatyMcSweatyface.Models
 
         public Guid userId { get; set; }
         public string userName { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public DateOnly birthDate { get; set; }
+        public int Age { get; set; }
+        public double heightInches { get; set; }
+        public double Weight { get; set; }
+        public double BMI { get; set; }
 
         //Constructors
 
@@ -20,12 +27,29 @@ namespace SweatyMcSweatyface.Models
         public User() { }
 
         //This constructor takes two arguments
-        public User(string _userName)
+        public User(string _userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
         {
             userId = Guid.NewGuid(); //This creates a random Guid for us, without us having to worry about it
             userName = _userName;
+            firstName = _firstName;
+            lastName = _lastName;
+            birthDate = _birthDate;
+            Age = _Age;
+            heightInches = _heightInches;
+            Weight = _Weight;
+            BMI = _BMI;
+        }
+        public override string ToString()
+        {
+            return $"userId: {userId}, userName: {userName}, firstName: {firstName}, lastName: {lastName}, birthDate: {birthDate}, Age: {Age}, heightInches: {heightInches}, Weight: {Weight}, BMI: {BMI}";
         }
 
+        static KeyValuePair<int, double> ToFeetInches(double totalInches)
+        {
+            int feet = (int)(totalInches / 12);
+            double remainingInches = totalInches % 12;
+            return new KeyValuePair<int, double>(feet, remainingInches);
+        }
 
         class Program
         {

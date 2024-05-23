@@ -12,156 +12,152 @@ namespace SweatyMcSweatyface.Presentation
     public class Menu
     {
 
-    public static void StartMenu() {
-
-        int userChoice = 0;
-        bool validInput = true;
-        Console.Clear();
-        Console.WriteLine("Welcome to SweatyMcSweatyface!");
-        Console.WriteLine("1. New Sweaty user");
-        Console.WriteLine("2. Returning Sweaty user");
-        Console.WriteLine("3. Exit program");
-        
-        do
+        public static void StartMenu()
         {
-            try
-            {
-                userChoice = Convert.ToInt32(Console.ReadLine());
-                validInput = true;
 
-                switch (userChoice)
-                {
-                    case 1: 
-                        UserCreationMenu(); //Creating a new user
-                        break;
-                    case 2:
-                        UserSignIn(); //Already existing users sign in here
-                        break;
-
-                    case 3: //Exit the program
-                        return; //This return exits this method, and returns us to where it was called.
-
-                    default: 
-                        Console.WriteLine("Please enter a valid choice...Like 1, 2, or 3.");
-                        validInput = false;
-                        break;
-                }
-
-            }
-            catch (Exception ex) 
-            {   
-                validInput = false;
-                Console.WriteLine(ex.Message);
-                Console.WriteLine(ex.StackTrace);
-                Console.WriteLine("That doesn't seem right... Please enter a valid choice!");
-            }
-            
-
-        } while (!validInput);
-
-        
-    }
-
-    public static void UserCreationMenu() // Here's where we create the Users
-    {
- 
-        bool validInput = true;
-        string userInput = "";
-        
-
-        do
-        {   
-            //Prompting the user for a username
+            int userChoice = 0;
+            bool validInput = true;
             Console.Clear();
-            Console.WriteLine("Let's get started by creating your username.\n\nPlease enter a username: ");
+            Console.WriteLine("Welcome to SweatyMcSweatyface!");
+            Console.WriteLine("1. New Sweaty user");
+            Console.WriteLine("2. Returning Sweaty user");
+            Console.WriteLine("3. Exit program");
 
-            userInput = Console.ReadLine() ?? "";   // Double ?s (null-coalescing operator) sets it to an empty string instead of it being a null
-
-            userInput = userInput.Trim();
-
-            if(String.IsNullOrEmpty(userInput))
+            do
             {
-                Console.WriteLine("Whoops! Looks like you forgot to enter a Username. Please try again.");
-                validInput = false;
-            }
-            else if(UserController.UserExists(userInput))
-            {
-                Console.WriteLine("Doh! That Username is already in use. Please choose another.");
-                validInput = false;
-            }
-            else
-            {
-           
+                try
                 {
-                    UserController.CreateUser(userInput);
-                    Console.WriteLine("Profile created!");
+                    userChoice = Convert.ToInt32(Console.ReadLine() ?? "");
                     validInput = true;
-                }
-            }
-            // else
-            // { 
-            //     UserController.CreateUser(userInput);
-            //     Console.WriteLine("Profile created!");
-            //     validInput = true;
-            // }
 
-        } while (!validInput); 
-        BodyStatsCreation();
-    }
-    
-    public static void UserSignIn()
-    {
-        bool signIn = false;
-        Console.WriteLine("Please provide your username to sign in\n");
-        string userInput = Console.ReadLine().Trim();
-        do
-        {
-            
-            if (String.IsNullOrEmpty(userInput))
-            {
-                Console.WriteLine("Whoops! Looks like you forgot to enter a Username. Please try again.");
-                signIn = false;
-            }
-            else if (!UserController.UserExists(userInput))
-            {
-                Console.WriteLine($"User not found! /nDo you need to create a new user? (yes/no)");
-                userInput = Console.ReadLine().Trim();
-                if (userInput == "yes" || userInput == "y")
+                    switch (userChoice)
+                    {
+                        case 1:
+                            UserCreationMenu(); //Creating a new user
+                            break;
+                        case 2:
+                            UserSignIn(); //Already existing users sign in here
+                            break;
+
+                        case 3: //Exit the program
+                            return; //This return exits this method, and returns us to where it was called.
+
+                        default:
+                            Console.WriteLine("Please enter a valid choice...Like 1, 2, or 3.");
+                            validInput = false;
+                            break;
+                    }
+
+                }
+                catch (Exception ex)
                 {
-                    signIn = true;
-                    UserCreationMenu();
+                    validInput = false;
+                    Console.WriteLine(ex.Message);
+                    Console.WriteLine(ex.StackTrace);
+                    Console.WriteLine("That doesn't seem right... Please enter a valid choice!");
                 }
-                else 
-                {  
-                    User userSignedIn = UserController.ReturnUser(userInput);
-                    Console.WriteLine($"User Id: {userSignedIn.userId}");
-                    Console.WriteLine($"User Name: {userSignedIn.userName}");
-                    signIn = true;
-                    AfterLogInMenu.PostLogInChoiceMenu(userSignedIn);
-                }
-                
-            }
-            
+
+
+            } while (!validInput);
+
+
         }
-        while (signIn == false);
-    }
 
-    public static void BodyStatsCreation()
-    {
-        bool validInput = true;
+        public static void UserCreationMenu() // Here's where we create the Users
+        {
 
-    do
-    {   
-        string firstName = "";
-        string lastName = "";
-        var birthDate = new DateOnly(2024,01,01);
-        double heightInches = 0;
-        double Weight = 0;
+            bool validInput = true;
+            string userInput = "";
+            string userId;
+
+
+            do
+            {
+                //Prompting the user for a username
+                Console.Clear();
+                Console.WriteLine("Let's get started by creating your username.\n\nPlease enter a username: ");
+
+                userInput = Console.ReadLine() ?? "";   // Double ?s (null-coalescing operator) sets it to an empty string instead of it being a null
+
+                userInput = userInput.Trim();
+
+                if (String.IsNullOrEmpty(userInput))
+                {
+                    Console.WriteLine("Looks like you forgot to enter a Username. Please enter your new username:/n");
+                    validInput = false;
+                }
+                else if (UserController.UserExists(userInput))
+                {
+                    Console.WriteLine("That Username is already in use. Please choose another:/n");
+                    validInput = false;
+                }
+                else
+                {
+
+                    validInput = true;
+
+                }
+
+            } while (!validInput);
+
+            PromptForUserData(userInput);
+            Console.WriteLine("Profile created!");
         
-        //Prompting the user for their additional information
-        
-        Console.Clear();
-        Console.WriteLine($"In order to track your progress, we will need some additional information.\n\nPlease enter your first name:\n");
+        }
+
+        public static void UserSignIn()
+        {
+            bool signIn = false;
+            Console.WriteLine("Please provide your username to sign in\n");
+            string userInput = Console.ReadLine().Trim();
+            do
+            {
+
+                if (String.IsNullOrEmpty(userInput))
+                {
+                    Console.WriteLine("Looks like you forgot to enter a Username. Please try again.");
+                    signIn = false;
+                }
+                else if (!UserController.UserExists(userInput))
+                {
+                    Console.WriteLine($"User not found! /nDo you need to create a new user? (yes/no)");
+                    userInput = Console.ReadLine().Trim();
+                    if (userInput == "yes" || userInput == "y")
+                    {
+                        signIn = true;
+                        UserCreationMenu();
+                    }
+                    else
+                    {
+                        User userSignedIn = UserController.ReturnUser(userInput);
+                        Console.WriteLine($"User Id: {userSignedIn.userId}");
+                        Console.WriteLine($"User Name: {userSignedIn.userName}");
+                        signIn = true;
+                    }
+
+                }
+
+            }
+            while (signIn == false);
+            AfterLogInMenu.PostLogInChoiceMenu(userInput);
+        }
+
+        public static void PromptForUserData(string userId)
+        {
+            bool validInput = true;
+
+            do
+            {
+                string firstName = "";
+                string lastName = "";
+                var birthDate = new DateOnly(2024, 01, 01);
+                double heightInches = 0;
+                double Weight = 0;
+
+                //Prompting the user for their additional information
+
+                Console.Clear();
+                Console.WriteLine($"In order to track your progress, we will need some additional information.\n\nPlease enter your first name:\n");
 
 
                 firstName = Console.ReadLine() ?? "";
@@ -173,7 +169,7 @@ namespace SweatyMcSweatyface.Presentation
                     Console.WriteLine("Whoops! Please enter your first name.\n");
                     validInput = false;
                 }
-                
+
                 Console.WriteLine("Please enter your last name: ");
 
                 lastName = Console.ReadLine() ?? "";
@@ -199,7 +195,7 @@ namespace SweatyMcSweatyface.Presentation
                     validInput = false;
                 }
 
-                
+
                 //Here we are calculating the user's age based on their birthdate
 
                 var Today = DateOnly.FromDateTime(DateTime.Today);
@@ -235,25 +231,20 @@ namespace SweatyMcSweatyface.Presentation
                     validInput = false;
                 }
 
-                double BMI  = (Weight / (heightInches * heightInches)) * 703;
+                double BMI = Weight / (heightInches * heightInches) * 703;
 
-    
+
                 {
-                    BodyStatsController.CreateBodyStats(firstName, lastName, Age, heightInches, Weight, BMI);
-                    Console.WriteLine("Body Stats Stored!");
+                    UserController.CreateUser(userId, firstName, lastName, birthDate, Age, heightInches, Weight, BMI);
+                    Console.WriteLine("User Data Stored!");
                     validInput = true;
                 }
-            
-            // else
-            // { 
-            //     UserController.CreateUser(userInput);
-            //     Console.WriteLine("Profile created!");
-            //     validInput = true;
-            // }
 
-        } while (!validInput); 
-        
-    }
-        
+            } while (!validInput);
+
+            AfterLogInMenu.PostLogInChoiceMenu(userId);
+
+        }
+
     }
 }
