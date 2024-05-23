@@ -30,7 +30,7 @@ namespace SweatyMcSweatyface.Presentation
                 {
 
 
-                    //Need to do a check to see if the user has already entered their information
+                    //need to do a check to see if the user has already entered their information
                     //If they haven't, we need to prompt them to enter it before they can do anything else
                     //If they have, we can proceed with the menu as normal
 
@@ -79,24 +79,24 @@ namespace SweatyMcSweatyface.Presentation
             
             Console.WriteLine($"Height: {user.heightInches}");
             Console.WriteLine($"Weight: {user.Weight}");
-            Console.WriteLine($"It's time to talk about your BMI./n/nYour BMI is a calculation that uses your height and weight to determine if you are at a healthy weight. It is not a perfect system, but it is a good starting point to see if you are at a healthy weight./n/nBelow are the ranges utilized by the CDC:/n/nUnderweight: BMI is less than 18.5/nHealthy weight: BMI is 18.5 to 24.9/nOverweight: BMI is 25 to 29.9/nObese: BMI is 30 or more/n/n");
+            Console.WriteLine($"It's time to talk about your BMI.\n\nYour BMI is a calculation that uses your height and weight to determine if you are at a healthy weight. It is not a perfect system, but it is a good starting point to see if you are at a healthy weight.\n\nBelow are the ranges utilized by the CDC:\n\nUnderweight: BMI is less than 18.5\nHealthy weight: BMI is 18.5 to 24.9\nOverweight: BMI is 25 to 29.9\nObese: BMI is 30 or more\n\n");
             
-            Console.WriteLine($"****Legal Disclaimer from a Non-Lawyer*****/n/nThe CDC utilizes the BMI calculation as a screening tool and it is not to be used for diagnostic purposes./nIf you have questions about your BMI score, please contact your doctor and they will be able to provide you with information that is most appropriate for your body, age, baseball team preference, etc./n");
+            Console.WriteLine($"****Legal Disclaimer from a Non-Lawyer*****\n\nThe CDC utilizes the BMI calculation as a screening tool and it is not to be used for diagnostic purposes.\nIf you have questions about your BMI score, please contact your doctor and they will be able to provide you with information that is most appropriate for your body, age, baseball team preference, etc.\n");
             if(user.BMI < 18.5)
             {
-                Console.WriteLine("Your BMI calculation is {user.BMI}, which is considered to be in the underweight range. I miss those days.../n/n");
+                Console.WriteLine("Your BMI calculation is {user.BMI}, which is considered to be in the underweight range. I miss those days...\n\n");
             }
             else if(user.BMI >= 18.5 && user.BMI < 24.9)
             {
-                Console.WriteLine("Good for you! Your BMI calculation is {user.BMI}, which is considered at a healthy weight range./n/n");
+                Console.WriteLine("Good for you! Your BMI calculation is {user.BMI}, which is considered at a healthy weight range.\n\n");
             }
             else if(user.BMI >= 25 && user.BMI < 29.9)
             {
-                Console.WriteLine("Your BMI calculation of {user.BMI} falls in into the very relateable overweight range. It happens to the best of us, but give your doctor a call and see if there is something they can do to get you back to being a better you./n/n");
+                Console.WriteLine("Your BMI calculation of {user.BMI} falls in into the very relateable overweight range. It happens to the best of us, but give your doctor a call and see if there is something they can do to get you back to being a better you.\n\n");
             }
             else
             {
-                Console.WriteLine("Your BMI Calculation is {user.BMI}, which falls into the obese range. Do not panic, but do contact your doctor to see what they can do to help you get back to a healthier you. You wanna know why? Because you're worth it, that's why./n/n");
+                Console.WriteLine("Your BMI Calculation is {user.BMI}, which falls into the obese range. Do not panic, but do contact your doctor to see what they can do to help you get back to a healthier you. You wanna know why? Because you're worth it, that's why.\n\n");
             }
             Console.WriteLine("Would you like to return to the main menu?");
             Console.WriteLine("1. Yes");
@@ -129,25 +129,20 @@ namespace SweatyMcSweatyface.Presentation
                     string newFirstName = Console.ReadLine();
                     user.firstName = newFirstName;
                     UserController.UpdateUserFirstName(user.userName, newFirstName);
-                    UpdateUserInfo(userId);
                     break;
                 case 2:
                     Console.WriteLine("Enter your new last name: ");
                     string newLastName = Console.ReadLine();
                     user.lastName = newLastName;
                     UserController.UpdateUserLastName(user.userName, newLastName);
-                    UpdateUserInfo(userId);
                     break;
                 case 3:
                     Console.WriteLine("Enter your new birth date (MM/DD/YYYY): ");
                     string newBirthDate = Console.ReadLine();
-                    user.birthDate = DateOnly.FromDateTime(Convert.ToDateTime(newBirthDate));
+                    user.birthDate = DateTime.Parse(newBirthDate);
                     //Calculating the age of the user
-                    var Today = DateOnly.FromDateTime(DateTime.Today);
-                    var ageInDays = Today.DayNumber - user.birthDate.DayNumber;
-                    int Age = (int)(ageInDays / 365.25);
+                    int Age = DateTime.Now.Year - user.birthDate.Year;
                     UserController.UpdateUserBirthDateNAge(user.userName, user.birthDate, Age);
-                    UpdateUserInfo(userId);
                     break;
                 case 4:
                     Console.WriteLine("Enter your new height in inches: ");
@@ -158,7 +153,6 @@ namespace SweatyMcSweatyface.Presentation
                     user.Weight = newWeight;
                     double newBMI = newWeight / (newHeight * newHeight) * 703;
                     UserController.UpdateUserHeightWeightBMI(user.userName, newHeight, newWeight, newBMI);
-                    UpdateUserInfo(userId);
                     break;
                 case 5:                       
                     UpdateUserInfo(userId);
@@ -167,7 +161,7 @@ namespace SweatyMcSweatyface.Presentation
                     PostLogInChoiceMenu(userId);
                     break;
                 default:
-                    Console.WriteLine("Please enter a valid choice...Like 1, 2, 3, 4, or 5./n");
+                    Console.WriteLine("Please enter a valid choice...Like 1, 2, 3, 4, or 5.\n");
                     break;
             }
         }
@@ -242,17 +236,17 @@ namespace SweatyMcSweatyface.Presentation
         //             }
         //             catch (Exception ex)
         //             {
-        //                 Console.WriteLine($"Invalid entry!/n Enter the name of the exercise you completed:/n");
+        //                 Console.WriteLine($"Invalid entry!\n Enter the name of the exercise you completed:\n");
         //             }
 
         //             try
         //             {
-        //                 Console.WriteLine($"Enter the duration of your {ExerciseName} workout in minutes:/n");
+        //                 Console.WriteLine($"Enter the duration of your {ExerciseName} workout in minutes:\n");
         //                 Duration = Convert.ToDouble(Console.ReadLine());
         //             }
         //             catch (Exception e)
         //             {
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter the duration of your {ExerciseName} workout in minutes:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter the duration of your {ExerciseName} workout in minutes:\n");
         //             }
 
         //             try
@@ -262,7 +256,7 @@ namespace SweatyMcSweatyface.Presentation
         //             }
         //             catch (Exception e)
         //             {
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter the number of sets you completed:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter the number of sets you completed:\n");
         //             }
 
         //             try
@@ -272,7 +266,7 @@ namespace SweatyMcSweatyface.Presentation
         //             }
         //             catch (Exception e)
         //             {
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter the number of reps you completed:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter the number of reps you completed:\n");
         //             }
 
         //             try
@@ -283,7 +277,7 @@ namespace SweatyMcSweatyface.Presentation
         //             catch (Exception e)
         //             {
 
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter the amount of weight you lifted:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter the amount of weight you lifted:\n");
         //             }
 
         //             try
@@ -293,7 +287,7 @@ namespace SweatyMcSweatyface.Presentation
         //             }
         //             catch (Exception e)
         //             {
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter a description for your weight room workout:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter a description for your weight room workout:\n");
         //             }
 
         //             // Console.WriteLine("Enter the number of calories burned: ");
@@ -319,8 +313,8 @@ namespace SweatyMcSweatyface.Presentation
         //     double AverageSpeed = 0;
         //     double Duration = 0;
 
-        //     Console.WriteLine("Did you Run or Cycle?/n");
-        //     Console.WriteLine("(Enter 'Run' or 'Cycle'):/n");
+        //     Console.WriteLine("Did you Run or Cycle?\n");
+        //     Console.WriteLine("(Enter 'Run' or 'Cycle'):\n");
         //     String RunOrCycle = Console.ReadLine();
 
         //     DateTime Date1;
@@ -336,12 +330,12 @@ namespace SweatyMcSweatyface.Presentation
 
         //     try
         //             {
-        //                 Console.WriteLine($"Enter the duration of your {RunOrCycle} workout in minutes:/n");
+        //                 Console.WriteLine($"Enter the duration of your {RunOrCycle} workout in minutes:\n");
         //                 Duration = Convert.ToDouble(Console.ReadLine());
         //             }
         //             catch (Exception e)
         //             {
-        //                 Console.WriteLine($"{e} Invalid entry!/n Enter the duration of your {RunOrCycle} workout in minutes:/n");
+        //                 Console.WriteLine($"{e} Invalid entry!\n Enter the duration of your {RunOrCycle} workout in minutes:\n");
         //             }
 
         //     Console.WriteLine("Enter the distance you ran or cycled: ");
@@ -373,7 +367,7 @@ namespace SweatyMcSweatyface.Presentation
 
         //     DateOnly Date = DateOnly.FromDateTime(Date1);
 
-        //     Console.WriteLine("Enter the duration of your workout in minutes:/n");
+        //     Console.WriteLine("Enter the duration of your workout in minutes:\n");
         //     Duration = Convert.ToDouble(Console.ReadLine());
 
         //     Console.WriteLine("Enter the type of workout you completed: ");

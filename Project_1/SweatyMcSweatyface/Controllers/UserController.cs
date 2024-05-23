@@ -14,7 +14,7 @@ public class UserController
     // private static Models.Interfaces.IUserStorageRepo _userData = (Models.Interfaces.IUserStorageRepo)new SqlUserStorage();
 
     private static IUserStorageRepo _userData = new SqlUserStorage();
-    public static string CreateUser(string userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
+    public static string CreateUser(string userName, string _firstName, string _lastName, DateTime _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
     {
         //Creating the user
         User newUser = new User(userName, _firstName, _lastName, _birthDate, _Age, _heightInches, _Weight, _BMI);
@@ -34,7 +34,7 @@ public class UserController
         return false;
     }
 
-    public static string updateUser(string userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
+    public static string updateUser(string userName, string _firstName, string _lastName, DateTime _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
     {
         User existingUser = _userData.FindUser(userName);
         existingUser.firstName = _firstName;
@@ -65,7 +65,7 @@ public class UserController
         return existingUser.userId.ToString();
     }
 
-    public static string UpdateUserBirthDateNAge(string username, DateOnly newBirthDate, int newAge)
+    public static string UpdateUserBirthDateNAge(string username, DateTime newBirthDate, int newAge)
     {
         User existingUser = _userData.FindUser(username);
         existingUser.birthDate = newBirthDate;

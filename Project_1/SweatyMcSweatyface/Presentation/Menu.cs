@@ -83,12 +83,12 @@ namespace SweatyMcSweatyface.Presentation
 
                 if (String.IsNullOrEmpty(userInput))
                 {
-                    Console.WriteLine("Looks like you forgot to enter a Username. Please enter your new username:/n");
+                    Console.WriteLine("Looks like you forgot to enter a Username. Please enter your new username:\n");
                     validInput = false;
                 }
                 else if (UserController.UserExists(userInput))
                 {
-                    Console.WriteLine("That Username is already in use. Please choose another:/n");
+                    Console.WriteLine("That Username is already in use. Please choose another:\n");
                     validInput = false;
                 }
                 else
@@ -102,7 +102,7 @@ namespace SweatyMcSweatyface.Presentation
 
             PromptForUserData(userInput);
             Console.WriteLine("Profile created!");
-        
+
         }
 
         public static void UserSignIn()
@@ -120,7 +120,7 @@ namespace SweatyMcSweatyface.Presentation
                 }
                 else if (!UserController.UserExists(userInput))
                 {
-                    Console.WriteLine($"User not found! /nDo you need to create a new user? (yes/no)");
+                    Console.WriteLine($"User not found! \nDo you need to create a new user? (yes\no)");
                     userInput = Console.ReadLine().Trim();
                     if (userInput == "yes" || userInput == "y")
                     {
@@ -129,12 +129,16 @@ namespace SweatyMcSweatyface.Presentation
                     }
                     else
                     {
-                        User userSignedIn = UserController.ReturnUser(userInput);
-                        Console.WriteLine($"User Id: {userSignedIn.userId}");
-                        Console.WriteLine($"User Name: {userSignedIn.userName}");
-                        signIn = true;
+                        Console.WriteLine("Please provide your username to sign in\n");
+                        userInput = Console.ReadLine().Trim();
                     }
-
+                }
+                else
+                {
+                    User userSignedIn = UserController.ReturnUser(userInput);
+                    Console.WriteLine($"User Id: {userSignedIn.userId}");
+                    Console.WriteLine($"User Name: {userSignedIn.userName}");
+                    signIn = true;
                 }
 
             }
@@ -150,7 +154,7 @@ namespace SweatyMcSweatyface.Presentation
             {
                 string firstName = "";
                 string lastName = "";
-                var birthDate = new DateOnly(2024, 01, 01);
+                var birthDate = new DateTime();
                 double heightInches = 0;
                 double Weight = 0;
 
@@ -185,7 +189,7 @@ namespace SweatyMcSweatyface.Presentation
 
                 try
                 {
-                    birthDate = DateOnly.Parse(Console.ReadLine() ?? "");
+                    birthDate = DateTime.Parse(Console.ReadLine() ?? "");
                 }
                 catch (Exception ex)
                 {
@@ -198,9 +202,10 @@ namespace SweatyMcSweatyface.Presentation
 
                 //Here we are calculating the user's age based on their birthdate
 
-                var Today = DateOnly.FromDateTime(DateTime.Today);
-                var ageInDays = Today.DayNumber - birthDate.DayNumber;
-                int Age = (int)(ageInDays / 365.25);
+                var Today = DateTime.Today;
+                var Age = Today.Year - birthDate.Year;
+                if (birthDate.Date > Today.AddYears(-Age)) Age--;
+
 
                 Console.WriteLine("Please enter your height in inches: \n");
 

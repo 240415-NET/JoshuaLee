@@ -15,7 +15,7 @@ namespace SweatyMcSweatyface.Models
         public string userName { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public DateOnly birthDate { get; set; }
+        public DateTime birthDate { get; set; }
         public int Age { get; set; }
         public double heightInches { get; set; }
         public double Weight { get; set; }
@@ -27,7 +27,7 @@ namespace SweatyMcSweatyface.Models
         public User() { }
 
         //This constructor takes two arguments
-        public User(string _userName, string _firstName, string _lastName, DateOnly _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
+        public User(string _userName, string _firstName, string _lastName, DateTime _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
         {
             userId = Guid.NewGuid(); //This creates a random Guid for us, without us having to worry about it
             userName = _userName;
