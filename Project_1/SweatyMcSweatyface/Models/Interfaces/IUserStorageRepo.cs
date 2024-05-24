@@ -11,6 +11,8 @@ namespace SweatyMcSweatyface.Models
         public User FindUser(string usernameToFind);  
         public void updateUser(User user);
 
+        public User GetUserData(string usernameToFind);
+
         public void UpdateUserFirstName(string userId, string newFirstName);
 
         public void UpdateUserLastName(string userId, string newLastName);

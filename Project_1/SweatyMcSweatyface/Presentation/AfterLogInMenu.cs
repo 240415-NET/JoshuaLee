@@ -43,7 +43,7 @@ namespace SweatyMcSweatyface.Presentation
                             break;
                         case 2:
                             Console.Clear();
-                             DisplayUserInfo(userId); //Display the current user's stats
+                             ViewProgress(userId); //Display the current user's stats
                             break;
                         // case 3:
                         //     UserStats.AddWorkout(userId); //Add a workout to the user's profile
@@ -72,9 +72,9 @@ namespace SweatyMcSweatyface.Presentation
 
         }
 
-        public static void DisplayUserInfo(string userId)
+        public static void DisplayUserInfo(string userName)
         {
-            User user = UserController.ReturnUser(userId);
+            User user = UserController.ReturnCurrentStats(userName);
             Console.WriteLine($"User: {user.userName}");
             Console.WriteLine($"First Name: {user.firstName}");
             Console.WriteLine($"Last Name: {user.lastName}");
@@ -83,13 +83,12 @@ namespace SweatyMcSweatyface.Presentation
             Console.WriteLine($"Weight: {user.Weight}");
             Console.WriteLine($"BMI: {user.BMI}");
         }
-        public static void ViewProgress(string userId)
+        public static void ViewProgress(string userName)
         { 
             Console.Clear();
-            User user = UserController.ReturnUser(userId);
+            User user = UserController.ReturnCurrentStats(userName);
             Console.WriteLine($"User: {user.userName}");
             Console.WriteLine($"Age: {user.Age}");
-            
             Console.WriteLine($"Height: {user.heightInches}");
             Console.WriteLine($"Weight: {user.Weight}");
             Console.WriteLine($"It's time to talk about your BMI.\n\nYour BMI is a calculation that uses your height and weight to determine if you are at a healthy weight. It is not a perfect system, but it is a good starting point to see if you are at a healthy weight.\n\nBelow are the ranges utilized by the CDC:\n\nUnderweight: BMI is less than 18.5\nHealthy weight: BMI is 18.5 to 24.9\nOverweight: BMI is 25 to 29.9\nObese: BMI is 30 or more\n\n");
@@ -97,19 +96,19 @@ namespace SweatyMcSweatyface.Presentation
             Console.WriteLine($"****Legal Disclaimer from a Non-Lawyer*****\n\nThe CDC utilizes the BMI calculation as a screening tool and it is not to be used for diagnostic purposes.\nIf you have questions about your BMI score, please contact your doctor and they will be able to provide you with information that is most appropriate for your body, age, baseball team preference, etc.\n");
             if(user.BMI < 18.5)
             {
-                Console.WriteLine("Your BMI calculation is {user.BMI}, which is considered to be in the underweight range. I miss those days...\n\n");
+                Console.WriteLine($"Your BMI calculation is {user.BMI}, which is considered to be in the underweight range. I miss those days...\n\n");
             }
             else if(user.BMI >= 18.5 && user.BMI < 24.9)
             {
-                Console.WriteLine("Good for you! Your BMI calculation is {user.BMI}, which is considered at a healthy weight range.\n\n");
+                Console.WriteLine($"Good for you! Your BMI calculation is {user.BMI}, which is considered at a healthy weight range.\n\n");
             }
             else if(user.BMI >= 25 && user.BMI < 29.9)
             {
-                Console.WriteLine("Your BMI calculation of {user.BMI} falls in into the very relateable overweight range. It happens to the best of us, but give your doctor a call and see if there is something they can do to get you back to being a better you.\n\n");
+                Console.WriteLine($"Your BMI calculation of {user.BMI} falls in into the very relateable overweight range. It happens to the best of us, but give your doctor a call and see if there is something they can do to get you back to being a better you.\n\n");
             }
             else
             {
-                Console.WriteLine("Your BMI Calculation is {user.BMI}, which falls into the obese range. Do not panic, but do contact your doctor to see what they can do to help you get back to a healthier you. You wanna know why? Because you're worth it, that's why.\n\n");
+                Console.WriteLine($"Your BMI Calculation is {user.BMI}, which falls into the obese range. Do not panic, but do contact your doctor to see what they can do to help you get back to a healthier you. You wanna know why? Because you're worth it, that's why.\n\n");
             }
             Console.WriteLine("Would you like to return to the Main Menu or Exit?");
             Console.WriteLine("1. Main Menu");
@@ -117,12 +116,11 @@ namespace SweatyMcSweatyface.Presentation
             int userChoice = Convert.ToInt32(Console.ReadLine());
             if (userChoice == 1)
             {
-                PostLogInChoiceMenu(userId);
+                PostLogInChoiceMenu(userName);
             }
             else
             {
                 Console.Clear();
-                Console.WriteLine("Goodbye and keep it Sweaty!");
             }
         }
 

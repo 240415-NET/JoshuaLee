@@ -95,11 +95,14 @@ public class SqlUserStorage : IUserStorageRepo
 
         while (reader.Read())
         {
-            foundUser.userName = reader.GetString(1);
-            foundUser.Age = reader.GetInt32(5);
-            foundUser.heightInches = reader.GetDouble(6);
-            foundUser.Weight = reader.GetDouble(7);
-            foundUser.BMI = reader.GetDouble(8);
+            foundUser.userName = reader.GetString(0);
+            foundUser.firstName = reader.GetString(1);
+            foundUser.lastName = reader.GetString(2);
+            foundUser.birthDate = reader.GetDateTime(3);
+            foundUser.Age = reader.GetInt32(4);
+            foundUser.heightInches = reader.GetDouble(5);
+            foundUser.Weight = reader.GetDouble(6);
+            foundUser.BMI = reader.GetDouble(7);
         }
         connection.Close();
 

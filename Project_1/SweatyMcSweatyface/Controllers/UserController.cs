@@ -57,7 +57,11 @@ public class UserController
         return existingUser;
     }
  
-
+    public static User ReturnCurrentStats(string userName)
+    {
+        User existingUser = _userData.GetUserData(userName);
+        return existingUser;
+    }
     public static string UpdateUserFirstName(string userId, string newFirstName)
     {
         User existingUser = _userData.FindUser(userId);
