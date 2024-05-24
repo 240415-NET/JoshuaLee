@@ -33,6 +33,7 @@ public class UserController
 
         return false;
     }
+    
 
     public static string updateUser(string userName, string _firstName, string _lastName, DateTime _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
     {
@@ -55,40 +56,40 @@ public class UserController
         User existingUser = _userData.FindUser(userName);
         return existingUser;
     }
+ 
 
-
-    public static string UpdateUserFirstName(string username, string newFirstName)
+    public static string UpdateUserFirstName(string userId, string newFirstName)
     {
-        User existingUser = _userData.FindUser(username);
+        User existingUser = _userData.FindUser(userId);
         existingUser.firstName = newFirstName;
-        _userData.updateUser(existingUser);
+        _userData.UpdateUserFirstName(userId, newFirstName);
         return existingUser.userId.ToString();
     }
 
-    public static string UpdateUserBirthDateNAge(string username, DateTime newBirthDate, int newAge)
+    public static string UpdateUserBirthDateNAge(string userId, DateTime newBirthDate, int newAge)
     {
-        User existingUser = _userData.FindUser(username);
+        User existingUser = _userData.FindUser(userId);
         existingUser.birthDate = newBirthDate;
         existingUser.Age = newAge;
-        _userData.updateUser(existingUser);
+        _userData.UpdateUserBirthDateNAge(userId, newBirthDate, newAge);
         return existingUser.userId.ToString();
     }
 
-    public static string UpdateUserLastName(string username, string newLastName)
+    public static string UpdateUserLastName(string userId, string newLastName)
     {
-        User existingUser = _userData.FindUser(username);
+        User existingUser = _userData.FindUser(userId);
         existingUser.lastName = newLastName;
-        _userData.updateUser(existingUser);
+        _userData.UpdateUserLastName(userId, newLastName);
         return existingUser.userId.ToString();
     }
 
-    public static string UpdateUserHeightWeightBMI(string username, double newHeight, double newWeight, double newBMI)
+    public static string UpdateUserHeightWeightBMI(string userId, double newHeight, double newWeight, double newBMI)
     {
-        User existingUser = _userData.FindUser(username);
+        User existingUser = _userData.FindUser(userId);
         existingUser.heightInches = newHeight;
         existingUser.Weight = newWeight;
         existingUser.BMI = newBMI;
-        _userData.updateUser(existingUser);
+        _userData.UpdateUserHeightWeightBMI(userId, newHeight, newWeight, newBMI);
         return existingUser.userId.ToString();
     }
 
