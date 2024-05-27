@@ -35,27 +35,7 @@ class Solution
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("What number for N?");
-        
-        int N = int.Parse(Console.ReadLine());
-
-        int summed = 0;
-        long producted = 1;
-
-        for (int i = 1; i <= N; i++)
-        {
-            summed += i;
-        }
-
-        for (int i = 1; i <= N; i++)
-        {
-            producted *= i;
-        }
-
-        // Write an answer using Console.WriteLine()
-        // To debug: Console.Error.WriteLine("Debug messages...");
-
-        Console.WriteLine($"{summed}\n{producted}");
+Console.Beep();
     }
 }
 //     }

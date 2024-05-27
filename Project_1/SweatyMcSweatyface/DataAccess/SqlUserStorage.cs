@@ -184,6 +184,7 @@ public class SqlUserStorage : IUserStorageRepo
                 cmd.Parameters.AddWithValue("@NewFirstName", newFirstName);
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 cmd.ExecuteNonQuery();
+                Console.Clear();
                 Console.WriteLine("First name updated successfully!\n");
                 AfterLogInMenu.UpdateUserInfo(userName);
             }
@@ -207,6 +208,7 @@ public class SqlUserStorage : IUserStorageRepo
                 cmd.Parameters.AddWithValue("@NewLastName", newLastName);
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 cmd.ExecuteNonQuery();
+                Console.Clear();
                 Console.WriteLine("Last name updated successfully!\n");
                 AfterLogInMenu.UpdateUserInfo(userName);
             }
@@ -231,6 +233,7 @@ public class SqlUserStorage : IUserStorageRepo
                 cmd.Parameters.AddWithValue("@NewAge", newAge);
                 cmd.Parameters.AddWithValue("@UserName", userName);
                 cmd.ExecuteNonQuery();
+                Console.Clear();
                 Console.WriteLine("Birth date updated successfully!\n");
                 AfterLogInMenu.UpdateUserInfo(userName);
             }
@@ -257,6 +260,7 @@ public class SqlUserStorage : IUserStorageRepo
                 cmd.Parameters.AddWithValue("@UserName", userName);
 
                 cmd.ExecuteNonQuery();
+                Console.Clear();
                 Console.WriteLine("Height and Weight updated successfully!\n");
                 AfterLogInMenu.UpdateUserInfo(userName);
             }

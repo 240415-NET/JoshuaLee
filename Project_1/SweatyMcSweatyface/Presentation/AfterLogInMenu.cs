@@ -126,9 +126,9 @@ namespace SweatyMcSweatyface.Presentation
 
         public static void UpdateUserInfo(string userId)
         { 
-            Console.Clear();
+            
             User user = UserController.ReturnUser(userId);
-            Console.WriteLine("What would you like to update?");
+            Console.WriteLine("What would you like to update? (Choose a Number)");
             Console.WriteLine("1. First Name");
             Console.WriteLine("2. Last Name");
             Console.WriteLine("3. Birth Date");

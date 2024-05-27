@@ -189,17 +189,20 @@ namespace SweatyMcSweatyface.Presentation
 
                 Console.WriteLine("Please enter your date of birth in this format: MM/DD/YYYY \nSo, if you were born on December 25, 1980, you would enter: 12/25/1980.\n ");
 
-                try
+                bool validDate = false;
+                do
                 {
-                    birthDate = DateTime.Parse(Console.ReadLine() ?? "");
-                    Console.Clear();
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine("Whoops! Please enter your date of birth in the correct format.\n");
-                    validInput = false;
-                }
-
+                    try
+                    {
+                        birthDate = DateTime.Parse(Console.ReadLine() ?? "");
+                        validDate = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine("Whoops! Please enter your date of birth in the correct format: MM/DD/YYYY\n");
+                        validDate = false;
+                    }
+                } while (validDate == false);
 
                 //Here we are calculating the user's age based on their birthdate
 
@@ -217,7 +220,6 @@ namespace SweatyMcSweatyface.Presentation
                 }
                 catch (Exception ex)
                 {
-                    Console.Clear();
                     Console.WriteLine("Whoops! Please enter your height in inches.\n");
                     validInput = false;
                 }
@@ -232,7 +234,6 @@ namespace SweatyMcSweatyface.Presentation
                 }
                 catch (Exception ex)
                 {
-                    Console.Clear();
                     Console.WriteLine("Whoops! Please enter your weight in pounds.\n");
                     validInput = false;
                 }
