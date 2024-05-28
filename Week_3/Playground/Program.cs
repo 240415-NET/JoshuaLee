@@ -1,28 +1,103 @@
-﻿using Microsoft.VisualBasic;
+﻿// using Microsoft.VisualBasic;
 
-namespace Playground;
+// namespace Playground;
 
-class Program
-{
-    static void Main(string[] args)
-    {
-        List<int> scores = [97, 92, 81, 60];
+// class Program
+// {
+//     static void Main(string[] args)
+//     {
+//         List<int> scores = [97, 92, 81, 60];
 
-        var scoreQuery = scores.Where(s => s > 80).OrderByDescending(s => s);
+//         var scoreQuery = scores.Where(s => s > 80).OrderByDescending(s => s);
 
-        List<int> myScores = scoreQuery.ToList();
+//         List<int> myScores = scoreQuery.ToList();
 
-        foreach (var score in myScores)
-        {
-            Console.WriteLine(score);
-        }
-    }
+//         foreach (var score in myScores)
+//         {
+//             Console.WriteLine(score);
+//         }
+//     }
 
     
+// }
+
+
+using System;
+using System.Linq;
+
+namespace BeautifyConsoleSO
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            char inputPrefix = '>';
+            bool flag = false;
+            int clearConsoleRefreshSpeed = 100;
+            int clearConsoleTick = 0;
+            string historyInput = string.Empty;
+            string currentInput = string.Empty;
+
+            string fix = string.Concat(Enumerable.Repeat(Environment.NewLine, Console.WindowHeight));
+            Console.WriteLine(fix);
+
+            historyInput += "Hello World!";
+
+            Console.WriteLine(historyInput);
+            Console.Write(inputPrefix);
+
+            while(flag != true)
+            {
+                ConsoleKeyInfo input = Console.ReadKey();
+
+                switch(input.Key)
+                {
+                    case ConsoleKey.Spacebar:
+                        currentInput += ' ';
+                        break;
+                    case ConsoleKey.Enter:
+                        historyInput += Environment.NewLine;
+                        historyInput += currentInput;
+                        currentInput = string.Empty;
+                        break;
+                    case ConsoleKey.Backspace:
+                        if(currentInput.Length > 0)
+                        {
+                            if (!currentInput[currentInput.Length - 1].Equals(' '))
+                            {
+                                currentInput = currentInput.Remove(currentInput.Length - 1);
+                            }
+                            else
+                            {
+                                currentInput = currentInput.Remove(currentInput.Length - 2);
+                            }
+                        }
+                        break;
+                    default:
+                        currentInput += input.KeyChar;
+                        break;
+                }
+
+                // attempt to fix flickering associated with Console.Clear()
+                Console.WriteLine(fix);
+
+                Console.WriteLine(historyInput);
+                Console.Write("{0}{1}", clearConsoleTick + " " +  inputPrefix, currentInput);
+
+                clearConsoleTick++;
+
+                if(clearConsoleTick % clearConsoleRefreshSpeed == 0)
+                {
+                    Console.Clear();
+                    Console.WriteLine(fix);
+                }
+            }
+
+            Console.ReadLine();
+        }
+
+    }
 }
-
-
-
 
 
 // List<string> Names = ["Marley", "Jonesy", "Macky", "Corbin"];
