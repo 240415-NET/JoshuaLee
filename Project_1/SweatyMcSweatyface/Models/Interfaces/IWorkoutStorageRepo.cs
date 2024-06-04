@@ -8,17 +8,17 @@ namespace SweatyMcSweatyface.Models.Interfaces
     public interface IWorkoutStorageRepo
 
     {
-        public void StoreWorkout(Workout newWorkout);
+        // public void StoreWorkout(Workout newWorkout);
 
-        public List<Workout> GetWorkouts(Guid userID, int listType);
+        // public List<Workout> GetWorkouts(Guid userID, int listType);
 
-        public void StoreWeightRoom(WeightRoom newWeightRoom);
+        // public void StoreWeightRoom(WeightRoom newWeightRoom);
 
-        public List<WeightRoom> GetWeightRooms(Guid userID, int listType);
+        // public List<WeightRoom> GetWeightRooms(Guid userID, int listType);
 
-        public void StoreRunNCycle(RunNCycle newRunNCycle);
+        // public void StoreRunNCycle(RunNCycle newRunNCycle);
 
-        public List<RunNCycle> GetRunNCycles(Guid userID, int listType);
+        // public List<RunNCycle> GetRunNCycles(Guid userID, int listType);
 
         // public WorkoutsDTO GetAllWorkouts(Guid userID, int listType);
 

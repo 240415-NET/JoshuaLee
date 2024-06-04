@@ -79,23 +79,23 @@ public class SqlUserStorage : IUserStorageRepo
 
         User foundUser = new User();
 
-        using SqlConnection connection = new SqlConnection(connectionString);
+        using SqlConnection connection = new SqlConnection(connectionString); //We create a connection object
 
-        connection.Open();
+        connection.Open(); //We open the connection
 
         string cmdText = @"SELECT userName, firstName, lastName, birthDate, Age, heightInches, Weight, BMI
                             FROM dbo.Users
-                            WHERE userName=@userToFind;";
+                            WHERE userName=@userToFind;"; //We create an SQL query to find the user
 
-        using SqlCommand cmd = new SqlCommand(cmdText, connection);
+        using SqlCommand cmd = new SqlCommand(cmdText, connection); //We create a command object
 
-        cmd.Parameters.AddWithValue("@userToFind", usernameToFind);
+        cmd.Parameters.AddWithValue("@userToFind", usernameToFind); //We fill in the parameter with the username we are looking for
 
-        using SqlDataReader reader = cmd.ExecuteReader();
+        using SqlDataReader reader = cmd.ExecuteReader(); //This is the object that will read our data
 
         while (reader.Read())
         {
-            foundUser.userName = reader.GetString(0);
+            foundUser.userName = reader.GetString(0); //We fill in the user object with the data we find
             foundUser.firstName = reader.GetString(1);
             foundUser.lastName = reader.GetString(2);
             foundUser.birthDate = reader.GetDateTime(3);
@@ -106,13 +106,14 @@ public class SqlUserStorage : IUserStorageRepo
         }
         connection.Close();
 
-        if (String.IsNullOrEmpty(foundUser.userName))
+        if (String.IsNullOrEmpty(foundUser.userName)) //If the username on foundUser is empty, we manually return a null.
             if (foundUser.userId == Guid.Empty)
             {
                 return null;
             }
         return foundUser;
     }
+    
     public void StoreUser(User user)
     {
 
@@ -126,10 +127,10 @@ public class SqlUserStorage : IUserStorageRepo
         using SqlCommand cmd = new SqlCommand(cmdText, connection);
 
 
-        cmd.Parameters.AddWithValue("@userId", user.userId);
-        cmd.Parameters.AddWithValue("@userName", user.userName);
-        cmd.Parameters.AddWithValue("@firstName", user.firstName);
-        cmd.Parameters.AddWithValue("@lastName", user.lastName);
+        cmd.Parameters.AddWithValue("@userId", user.userId); //We fill in the parameters with the user object's properties
+        cmd.Parameters.AddWithValue("@userName", user.userName);   
+        cmd.Parameters.AddWithValue("@firstName", user.firstName); 
+        cmd.Parameters.AddWithValue("@lastName", user.lastName); 
         cmd.Parameters.AddWithValue("@birthDate", user.birthDate);
         cmd.Parameters.AddWithValue("@Age", user.Age);
         cmd.Parameters.AddWithValue("@heightInches", user.heightInches);
@@ -153,11 +154,11 @@ public class SqlUserStorage : IUserStorageRepo
 
         string cmdText = @"UPDATE dbo.Users
                             SET firstName = @firstName, lastName = @lastName, birthDate = @birthDate, Age = @Age, heightInches = @heightInches, Weight = @Weight, BMI = @BMI
-                            WHERE userName = @userName;";
+                            WHERE userName = @userName;"; //We create an SQL query to update the user
 
-        using SqlCommand cmd = new SqlCommand(cmdText, connection);
+        using SqlCommand cmd = new SqlCommand(cmdText, connection); //We create a command object
 
-        cmd.Parameters.AddWithValue("@firstName", user.firstName);
+        cmd.Parameters.AddWithValue("@firstName", user.firstName); //We fill in the parameters with the user object's properties
         cmd.Parameters.AddWithValue("@lastName", user.lastName);
         cmd.Parameters.AddWithValue("@birthDate", user.birthDate);
         cmd.Parameters.AddWithValue("@Age", user.Age);
@@ -166,20 +167,20 @@ public class SqlUserStorage : IUserStorageRepo
         cmd.Parameters.AddWithValue("@BMI", user.BMI);
         cmd.Parameters.AddWithValue("@userName", user.userName);
 
-        cmd.ExecuteNonQuery();
+        cmd.ExecuteNonQuery(); //We execute the command
 
-        connection.Close();
+        connection.Close(); //We close the connection
     }
 
-    public void UpdateUserFirstName(string userName, string newFirstName)
+    public void UpdateUserFirstName(string userName, string newFirstName) //This method updates the first name of the user
     {
         try
         {
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(connectionString)) 
             {
                 connection.Open();
 
-                string updateQuery = "UPDATE dbo.Users SET FirstName = @NewFirstName WHERE userName = @UserName";
+                string updateQuery = "UPDATE dbo.Users SET FirstName = @NewFirstName WHERE userName = @UserName";  //We create an SQL query to update the user
                 SqlCommand cmd = new SqlCommand(updateQuery, connection);
                 cmd.Parameters.AddWithValue("@NewFirstName", newFirstName);
                 cmd.Parameters.AddWithValue("@UserName", userName);
@@ -195,7 +196,7 @@ public class SqlUserStorage : IUserStorageRepo
         }
     }
 
-    public void UpdateUserLastName(string userName, string newLastName)
+    public void UpdateUserLastName(string userName, string newLastName) //This method updates the last name of the user
     {
         try
         {
@@ -203,7 +204,7 @@ public class SqlUserStorage : IUserStorageRepo
             {
                 connection.Open();
 
-                string updateQuery = "UPDATE dbo.Users SET LastName = @NewLastName WHERE userName = @UserName";
+                string updateQuery = "UPDATE dbo.Users SET LastName = @NewLastName WHERE userName = @UserName";  //We create an SQL query to update the user
                 SqlCommand cmd = new SqlCommand(updateQuery, connection);
                 cmd.Parameters.AddWithValue("@NewLastName", newLastName);
                 cmd.Parameters.AddWithValue("@UserName", userName);
@@ -219,7 +220,7 @@ public class SqlUserStorage : IUserStorageRepo
         }
     }
 
-    public void UpdateUserBirthDateNAge(string userName, DateTime newBirthDateParsed, int newAge)
+    public void UpdateUserBirthDateNAge(string userName, DateTime newBirthDateParsed, int newAge) //This method updates the birth date and age of the user
     {
         try
         {
@@ -227,7 +228,7 @@ public class SqlUserStorage : IUserStorageRepo
             {
                 connection.Open();
 
-                string updateQuery = "UPDATE dbo.Users SET BirthDate = @NewBirthDateParsed WHERE userName = @UserName UPDATE dbo.Users SET Age = @NewAge WHERE userName = @UserName";
+                string updateQuery = "UPDATE dbo.Users SET BirthDate = @NewBirthDateParsed WHERE userName = @UserName UPDATE dbo.Users SET Age = @NewAge WHERE userName = @UserName";  //We create an SQL query to update the user
                 SqlCommand cmd = new SqlCommand(updateQuery, connection);
                 cmd.Parameters.AddWithValue("@NewBirthDateParsed", newBirthDateParsed);
                 cmd.Parameters.AddWithValue("@NewAge", newAge);
@@ -244,7 +245,7 @@ public class SqlUserStorage : IUserStorageRepo
         }
     }
 
-    public void UpdateUserHeightWeightBMI(string userName, double newHeightInches, double newWeight, double newBMI)
+    public void UpdateUserHeightWeightBMI(string userName, double newHeightInches, double newWeight, double newBMI) //This method updates the height, weight, and BMI of the user
     {
         try
         {
@@ -252,7 +253,7 @@ public class SqlUserStorage : IUserStorageRepo
             {
                 connection.Open();
 
-                string updateQuery = "UPDATE dbo.Users SET heightInches = @NewHeightInches WHERE userName = @UserName UPDATE dbo.Users SET Weight = @NewWeight WHERE userName = @UserName UPDATE dbo.Users SET BMI = @NewBMI WHERE userName = @UserName";
+                string updateQuery = "UPDATE dbo.Users SET heightInches = @NewHeightInches WHERE userName = @UserName UPDATE dbo.Users SET Weight = @NewWeight WHERE userName = @UserName UPDATE dbo.Users SET BMI = @NewBMI WHERE userName = @UserName";  //We create an SQL query to update the user
                 SqlCommand cmd = new SqlCommand(updateQuery, connection);
                 cmd.Parameters.AddWithValue("@NewHeightInches", newHeightInches);
                 cmd.Parameters.AddWithValue("@NewWeight", newWeight);
@@ -261,13 +262,13 @@ public class SqlUserStorage : IUserStorageRepo
 
                 cmd.ExecuteNonQuery();
                 Console.Clear();
-                Console.WriteLine("Height and Weight updated successfully!\n");
+                Console.WriteLine("Height and Weight updated successfully!\n"); //We clear the console and print a success message
                 AfterLogInMenu.UpdateUserInfo(userName);
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error updating height: {ex.Message}");
+            Console.WriteLine($"Error updating height: {ex.Message}"); //If there is an error, we print an error message
         }
     }
 

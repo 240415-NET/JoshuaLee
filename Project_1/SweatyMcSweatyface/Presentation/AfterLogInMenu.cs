@@ -17,7 +17,7 @@ namespace SweatyMcSweatyface.Presentation
 
             int userChoice = 0;
             bool validInput = true;
-            Console.Clear();
+            
 
             Console.WriteLine("What would you like to do next?");
             Console.WriteLine("1. Update my user information");
@@ -34,6 +34,7 @@ namespace SweatyMcSweatyface.Presentation
                 
                     userChoice = Convert.ToInt32(Console.ReadLine());
                     validInput = true;
+                    Console.Clear();
 
                     switch (userChoice)
                     {
@@ -113,14 +114,17 @@ namespace SweatyMcSweatyface.Presentation
             Console.WriteLine("Would you like to return to the Main Menu or Exit?");
             Console.WriteLine("1. Main Menu");
             Console.WriteLine("2. Exit Program");
-            int userChoice = Convert.ToInt32(Console.ReadLine());
+            int userChoice = Convert.ToInt32(Console.ReadLine()); //User choice to return to the main menu or exit the program
             if (userChoice == 1)
             {
-                PostLogInChoiceMenu(userName);
+                Console.Clear();
+                PostLogInChoiceMenu(userName); //Return to the main menu
             }
             else
             {
                 Console.Clear();
+                Console.WriteLine("Goodbye and keep it Sweaty!"); //Exit the program message
+                Environment.Exit(0);
             }
         }
 
@@ -135,57 +139,58 @@ namespace SweatyMcSweatyface.Presentation
             Console.WriteLine("4. Height & Weight");
             Console.WriteLine("5. Return to Main Menu");
             Console.WriteLine("6. Exit program");
-            int userChoice = Convert.ToInt32(Console.ReadLine());
+            int userChoice = Convert.ToInt32(Console.ReadLine()); //User choice to update their information
             switch (userChoice)
             {
                 case 1:
                     Console.WriteLine("Enter your new first name:\n");
                     string newFirstName = Console.ReadLine();
-                    user.firstName = newFirstName;
-                    UserController.UpdateUserFirstName(userId, newFirstName);
+                    user.firstName = newFirstName; 
+                    UserController.UpdateUserFirstName(userId, newFirstName); //Update the user's first name
                     // Console.WriteLine("Your first name was updated successfully!");
                     break;
                 case 2:
                     Console.WriteLine("Enter your new last name:\n");
                     string newLastName = Console.ReadLine();
                     user.lastName = newLastName;
-                    UserController.UpdateUserLastName(userId, newLastName);
+                    UserController.UpdateUserLastName(userId, newLastName); //Update the user's last name
                     // Console.WriteLine("Your last name was updated successfully!");
                     break;
                 case 3:
                     Console.WriteLine("Enter your new birth date (MM/DD/YYYY):\n");
-                    string newBirthDate = Console.ReadLine();
-                    if (DateTime.TryParse(newBirthDate, out DateTime newBirthDateParsed))
+                    string newBirthDate = Console.ReadLine(); 
+                    if (DateTime.TryParse(newBirthDate, out DateTime newBirthDateParsed)) //Checking to see if the birth date is in the correct format
                     {
-                        //Calculating the age of the user
-                        int newAge = DateTime.Now.Year - newBirthDateParsed.Year;
-                        UserController.UpdateUserBirthDateNAge(userId, newBirthDateParsed, newAge);
+                        int newAge = DateTime.Now.Year - newBirthDateParsed.Year; //Calculating the age of the user
+                        UserController.UpdateUserBirthDateNAge(userId, newBirthDateParsed, newAge); //Updating the user's birth date
                     }
                     else
                     {
-                        Console.WriteLine("Invalid birth date format.");
+                        Console.WriteLine("Invalid birth date format."); //If the birth date is not in the correct format
                     }
                     // Console.WriteLine("Your birth date was updated successfully!");
                     break;
                 case 4:
                     Console.WriteLine("Enter your new height in inches:\n");
-                    double newHeight = Convert.ToDouble(Console.ReadLine());
+                    double newHeight = Convert.ToDouble(Console.ReadLine()); //User input for their new height
                     user.heightInches = newHeight;
                     Console.WriteLine("Enter your new weight:\n");
-                    double newWeight = Convert.ToDouble(Console.ReadLine());
+                    double newWeight = Convert.ToDouble(Console.ReadLine()); //User input for their new weight
                     user.Weight = newWeight;
-                    double newBMI = newWeight / (newHeight * newHeight) * 703;
-                    UserController.UpdateUserHeightWeightBMI(userId, newHeight, newWeight, newBMI);
+                    double newBMI = newWeight / (newHeight * newHeight) * 703; //Calculating the new BMI
+                    UserController.UpdateUserHeightWeightBMI(userId, newHeight, newWeight, newBMI); //Updating the user's height, weight, and BMI
                     // Console.WriteLine("Your height and weight were updated successfully!");
                     break;
                 case 5:                       
-                    PostLogInChoiceMenu(userId);
+                    PostLogInChoiceMenu(userId); //Return to the main menu
                     break;
                 case 6:
                     Console.Clear();
+                    Console.WriteLine("Goodbye and keep it Sweaty!"); //Exit the program message
+                    Environment.Exit(0);
                     return;
                 default:
-                    Console.WriteLine("Please enter a valid choice...Like 1, 2, 3, 4, or 5.\n");
+                    Console.WriteLine("Please enter a valid choice...Like 1, 2, 3, 4, or 5.\n"); //If the user enters an invalid choice
                     break;
             }
         }

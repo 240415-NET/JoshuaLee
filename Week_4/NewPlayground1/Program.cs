@@ -35,7 +35,16 @@ class Solution
 {
     static void Main(string[] args)
     {
-Console.Beep();
+        string horsesRun = "The horseees are running....They bring so much joy to the world??????!::::::";
+
+        char[] delimitersHorse = {' ', '.', '?', '!', ':'};
+
+        string[] brokenHorses = horsesRun.Split(delimitersHorse);
+
+        foreach (string horse in brokenHorses)
+        {
+            Console.WriteLine(horse);
+        }
     }
 }
 //     }
