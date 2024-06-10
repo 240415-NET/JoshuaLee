@@ -1,0 +1,29 @@
+
+    .container {
+        background-color: lightgreen;
+        padding: 20px;
+        margin: 20px;
+        color: #000;
+    }
+    body {
+        background-color: lightblue;
+    }
+    h1 {
+        color: red;
+    }
+    #first-heading {
+        color: orange;
+    }
+    p {
+        color: blue;
+    }
+    li {
+        color: green;
+    }
+    ol {
+        color: purple;
+    }
+    a {
+        color: ghostwhite;
+        background-color: black;
+    }

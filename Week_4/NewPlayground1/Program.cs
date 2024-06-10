@@ -21,33 +21,29 @@
         // }
 
         using System;
-using System.Linq;
-using System.IO;
-using System.Text;
-using System.Collections;
-using System.Collections.Generic;
+        using System.Linq;
+        using System.Collections.Generic;
 
-/**
- * Auto-generated code below aims at helping you parse
- * the standard input according to the problem statement.
- **/
-class Solution
-{
-    static void Main(string[] args)
-    {
-        string horsesRun = "The horseees are running....They bring so much joy to the world??????!::::::";
-
-        char[] delimitersHorse = {' ', '.', '?', '!', ':'};
-
-        string[] brokenHorses = horsesRun.Split(delimitersHorse);
-
-        foreach (string horse in brokenHorses)
+        public class Program
         {
-            Console.WriteLine(horse);
+            public static List<int> GetIntList(List<object> mixedList)
+            {
+                List<int> intList = mixedList.OfType<int>().ToList();
+                return intList;
+            }
+
+            public static void Main(string[] args)
+            {
+                List<object> mixedList = new List<object> { 1, "apple", 2, "banana", 3, "cherry" };
+
+                List<int> result = GetIntList(mixedList);
+
+                foreach (int num in result)
+                {
+                    Console.WriteLine(num);
+                }
+            }
         }
-    }
-}
-//     }
 // }
 
 

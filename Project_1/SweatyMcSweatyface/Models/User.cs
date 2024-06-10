@@ -8,10 +8,10 @@ using SweatyMcSweatyface.Presentation;
 
 namespace SweatyMcSweatyface.Models
 {
-    public class User
+    public class User 
     {
 
-        public Guid userId { get; set; }
+        public Guid userId { get; set; } 
         public string userName { get; set; }
         public string firstName { get; set; }
         public string lastName { get; set; }
@@ -26,7 +26,7 @@ namespace SweatyMcSweatyface.Models
         //Default/No argument constructor
         public User() { }
 
-        //This constructor takes two arguments
+        //This constructor takes in all the properties of the User class
         public User(string _userName, string _firstName, string _lastName, DateTime _birthDate, int _Age, double _heightInches, double _Weight, double _BMI)
         {
             userId = Guid.NewGuid(); //This creates a random Guid for us, without us having to worry about it
@@ -39,9 +39,9 @@ namespace SweatyMcSweatyface.Models
             Weight = _Weight;
             BMI = _BMI;
         }
-        public override string ToString()
+        public override string ToString() //This method is used to display the object in a readable format
         {
-            return $"userId: {userId}, userName: {userName}, firstName: {firstName}, lastName: {lastName}, birthDate: {birthDate}, Age: {Age}, heightInches: {heightInches}, Weight: {Weight}, BMI: {BMI}";
+            return $"userId: {userId}, userName: {userName}, firstName: {firstName}, lastName: {lastName}, birthDate: {birthDate}, Age: {Age}, heightInches: {heightInches}, Weight: {Weight}, BMI: {BMI}"; //This is the format in which the object will be displayed
         }
 
         static KeyValuePair<int, double> ToFeetInches(double totalInches)
